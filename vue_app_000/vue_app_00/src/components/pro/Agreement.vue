@@ -1,4 +1,4 @@
-<!-- 用户协议 -->
+<!--Agreement 用户协议 -->
 <template>
     <div class="agreement">
         <div>

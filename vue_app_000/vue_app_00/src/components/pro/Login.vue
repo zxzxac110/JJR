@@ -1,5 +1,5 @@
 <template>
-    <!-- 登录页面 -->
+    <!--Login 注册页面 -->
     <div class="text-center login">
         <div class="loginD-none">
             <div><span :class="spanswitch?spanDefault:null"  @click="per('ym')">账号登录</span></div>
@@ -26,17 +26,17 @@
         </div>  
         <div class="Other-login">
             <div>
-                <img src="../../assets/qq.png" alt="">
+                <img src="../../assets/qq.png" alt=""> 
                 <div>QQ登陆</div> 
             </div>
             <div>
-                <img src="../../assets/wx.png" alt="">
+                <img src="../../assets/wx.png" alt=""> 
                 <div>微信登录</div>          
             </div>
-            <div>
-                <img src="../../assets/wb.png" alt="">   
+            <div >
+                <img src="../../assets/wb.png" alt="">    
                 <div>微博登录</div>
-            </div>            
+            </div>           
         </div>
     </div>
 </template>
@@ -71,7 +71,4 @@ export default {
 </script>
 <style scoped>
 @import url("../../css/loginReg.css");
-
-
-
 </style>

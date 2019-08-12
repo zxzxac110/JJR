@@ -1,4 +1,4 @@
-<!-- personal -->
+<!-- personal 个人中心 -->
 <template>
     <div class="personal">
         <div class="personal-to1">
@@ -41,21 +41,22 @@
                 <img src="../../assets/text.png" alt="">
                 </div>
                 我的简历
-                <span>></span>
+                <span class="schedule">20%</span>
+                <span class="iconfont icon-dayufuhao"></span>
             </div>
             <div>
                 <div>
                 <img src="../../assets/time.png" alt="">
                 </div>
                 应聘记录
-                <span>></span>
+                <span class="iconfont icon-dayufuhao"></span>
             </div>
             <div>
                 <div>
                 <img src="../../assets/xing.png" alt="">
                 </div>
                 职业收藏
-                <span>></span>
+                <span class="iconfont icon-dayufuhao"></span>
             </div>
         </div>
         <div class="personal-to5">
@@ -64,14 +65,14 @@
                 <img src="../../assets/dingyue.png" alt="">
                 </div>
                 我的订阅
-                <span>></span>
+                <span class="iconfont icon-dayufuhao"></span>
             </div>
             <div>
                 <div>
                 <img src="../../assets/shez.png" alt="">
                 </div>
                 账号设置
-                <span>></span>
+                <span class="iconfont icon-dayufuhao"></span>
             </div>
         </div>
     </div>
@@ -82,32 +83,9 @@ export default {
 }
 </script>
 <style scoped>
+@import url("../../css/mypersonal.css");
 .personal div{
     background:#fff
-}
-
-.personal-to1{
-    display: flex;
-    height:88px;
-}
-.personal-to1 .portrait{
-    width:68px;
-    height:88px;
-    padding: 20px 10px;
-}
-.personal-to1-gr{
-    padding: 20px 10px;
-}
-.personal-to1-gr span{
-    color: #999;
-    margin-left:10px;
-    padding-left:10px;
-    border-left:1px solid #888;
-    font-size: 14px; 
-}
-.personal-to1-letter{
-    font-size: 14px; 
-    color: #999;
 }
 .personal-to2{
     display: flex; 
@@ -144,6 +122,12 @@ export default {
 .personal-to4{
     margin-bottom:15px;
 }
+.personal-to4 .schedule {
+    margin-right:20px;
+    font-size:14px; 
+    font-weight: 400;
+    color: #636363; 
+}
 .personal-to5>div,
 .personal-to4>div{
     height:50px;
@@ -156,6 +140,10 @@ export default {
 .personal-to5 div>div,
 .personal-to4 div>div{
     width:10%;
+}
+.personal-to5 div>span,
+.personal-to4 div>span{
+    font-weight: 700
 }
 .personal-to5 img,
 .personal-to4 img{
