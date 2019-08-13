@@ -89,6 +89,9 @@
         color: #468CF0;
         font-size:13px 
 }
+.login .smsColor{
+    color:#c8c8c8 !important;
+}
 /*loginym*/
 .login .yminput{
     display:flex;

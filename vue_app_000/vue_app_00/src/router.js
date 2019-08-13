@@ -10,7 +10,7 @@ import PersonalSet from "./components/pro/PersonalSet.vue"  //用户个人中心
 import PersonalDY from "./components/pro/PersonalDY.vue"  //用户个人中心-订阅
 import PersonalCollect from "./components/pro/PersonalCollect.vue"  //用户个人中心-收藏
 import PersonalResume from "./components/pro/PersonalResume.vue"  //用户个人中心-简历
-import PersonalRecord from "./components/pro/PersonalRecord.vue"  //用户个人中心-简历
+import PersonalRecord from "./components/pro/PersonalRecord.vue"  //用户个人中心-应聘记录
 Vue.use(Router)
 export default new Router({
   routes: [

@@ -7,6 +7,12 @@
             </div>
             <mt-field class="ym-field bm" placeholder="请输入常用手机号" v-model="uname" ></mt-field>
         </div>
+        <div class="yminput">
+            <div class="ymimgdiv iconfont icon-mima">
+                <!-- <img src="../../assets/mm.png" alt=""> -->
+            </div>
+            <mt-field class="ym-field bm" placeholder="请输入密码" type="password" v-model="upwd" ></mt-field>
+        </div>
         <div class="yminput smsinput">
             <div class="ymimgdiv iconfont icon-yanzhengma">
                 <!-- <img src="../../assets/yzm.png" alt=""> -->

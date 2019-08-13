@@ -15,12 +15,10 @@
                 <div>刘志祥<span>男</span></div>
                 <div class="personal-to1-letter">长沙东塘第一帅</div>
             </div>
-            
         </div>
         <div class="PersonalDY">
             <div class="details">
                 <div>
-                    
                     <div><i class="regbor"></i>求职意向</div>
                     <div>
                         <input type="text" value="">
@@ -108,7 +106,6 @@ export default {
         return{
             progress:20//进度条数字
         }
-   
     }, 
     methods: {
         

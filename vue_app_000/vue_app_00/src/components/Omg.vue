@@ -1,6 +1,7 @@
 <template>
 <div>
   <div>
+    <myheader></myheader>
     <mt-tab-container v-model="active">
         <mt-tab-container-item id="m1">
           首页引入
@@ -9,7 +10,6 @@
           分类
         </mt-tab-container-item>
         <mt-tab-container-item id="m3">
-
           <login></login>
         </mt-tab-container-item>
     </mt-tab-container>
@@ -45,6 +45,7 @@
  <script>
 import TabBarIcon from "./pro/TabBarIcon.vue"
 import login from "./pro/Login.vue"
+import myheader from "./Myheader.vue"
 export default {
      data(){
          return{
@@ -77,7 +78,8 @@ export default {
   },
     components:{
             "tabbaricon":TabBarIcon,
-            login
+            login,
+            myheader,
  },
 }
 </script>
