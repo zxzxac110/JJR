@@ -4,7 +4,7 @@
         <div class="yminput"> 
             <div class="ymimgdiv iconfont icon-yonghu">
             </div>
-            <mt-field class="ym-field bm " placeholder="用户名/手机" v-model="uname" @change="setuname"></mt-field>
+            <mt-field class="ym-field bm " placeholder="用户名" v-model="uname" @change="setuname"></mt-field>
         </div>
         <div class="yminput">
             <div class="ymimgdiv iconfont icon-mima">

@@ -29,7 +29,7 @@
         </div>
         <div class="personal-to3">
             <div>
-                <mt-button  @click="login" class="seek">输入职位或公司</mt-button>
+                <mt-button   class="seek">输入职位或公司</mt-button>
             </div>
             <div class="imgdiv">
                 <img src="../../assets/ss.png" alt="">

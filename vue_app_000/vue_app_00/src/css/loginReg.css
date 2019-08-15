@@ -77,6 +77,24 @@
     width:33%;
     text-align: center
 }
+.login .getyzm div{
+    background:#eee;
+    width:98%;
+    position: fixed;
+    top:0;
+    z-index: 9999999;
+    padding:5%;
+    margin: 0 1%;
+    border-bottom-right-radius:16px; 
+    border-bottom-left-radius:16px;
+}
+.login .getyzmh{
+   display: none
+}
+.login .getyzms{
+    color: aqua;
+    text-decoration:underline;
+}
 /*loginSMs*/
 .login .smsinput .w-45{width:45%}
 .login .smsinput .spans{
