@@ -24,14 +24,16 @@ app.use(session({
 app.use(express.static("public"));
 app.listen(3000);
 //-----------------------------------------------------注册
-app.post("/reg",(req,res)=>{
+// post 请求有问题.待解决
+//app.post("/reg",(req,res)=>{
+app.get("/reg",(req,res)=>{
     console.log(req)
    var {uname,upwd,uphone}=req.query
    var sql='SELECT uname FROM career_user WHERE uname=?'
    pool.query(sql,[uname],function(err,result){
     if(err) throw err;
     if(result.length>0){res.send({code:-1,msg:"已存在的用户名"});return;}
-   var sql=`INSERT INTO career_user VALUES(null,?,?,?,1,"",?,"","","","")`
+   var sql=`INSERT INTO career_user VALUES(null,?,?,?,?)`
    pool.query(sql,[uname,upwd,uname,uphone],function(err,result){
         if(err) throw err;
         if(result.affectedRows>0){

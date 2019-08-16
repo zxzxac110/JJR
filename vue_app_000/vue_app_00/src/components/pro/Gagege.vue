@@ -73,9 +73,8 @@ export default {
     methods:{
     }, 
     created(){
-        var i=5
+        var i=2
         var time=setInterval(()=>{
-          console.log(i)
           i--;
           if(i==0){
             this.bnnn="d-nnn";
@@ -110,14 +109,6 @@ body,html{
   height: 55px;
   background-color:#282424;
   background-size: cover;
-}
-.jjrLogo{
-    width: 44px;
-    height: 44px;
-    display: inline-block;
-    margin-top: 6px;
-    margin-left: 24px;
-    float:left;
 }
 .title{
     float: left;

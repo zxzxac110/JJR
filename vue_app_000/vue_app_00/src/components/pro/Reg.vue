@@ -78,12 +78,14 @@ export default {
                  }
              var url="reg";
              var obj={uname,upwd,uphone}
-            console.log(this.qs.stringify(obj))
-             this.axios.post(url,obj).then(
+            //console.log(this.qs.stringify(obj))
+            // post请求有问题.无法的得到数据 待解决
+             //this.axios.post(url,obj).then(
+            this.axios.get(url,{params:obj}).then( 
                      res=>{
                       if(res.data.code>0){
                         this.$toast({message:res.data.msg})  
-                        this.$router.push("/login")
+                        this.$router.push("/omg?id=m3")
                       }else{
                         this.$toast({message:res.data.msg});  
                       }

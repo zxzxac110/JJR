@@ -1,5 +1,5 @@
 <template>
-    <!--Login 登录页面  李 -->
+<!-- 登录界面 -->
     <div class="text-center login">
         <div class="getyzm" :class="getyzmh">
             <div>
@@ -13,11 +13,9 @@
         </div>
 <mt-tab-container v-model="active" >
         <mt-tab-container-item id="ym">
-          <!-- 账号密码登录 -->
           <loginym @changeUrl="getUrl"></loginym>
         </mt-tab-container-item> 
         <mt-tab-container-item id="sms">
-          <!-- 短信验证码登录 -->
           <loginsms :yzmspan="yzmspan" :Yzm="Yzm" :smsColor="smsColor" @yzmfun="getUrl"></loginsms>
         </mt-tab-container-item>
 </mt-tab-container>
@@ -32,17 +30,14 @@
         </div>  
         <div class="Other-login">
             <div>
-                <!-- <img src="../../assets/qq.png" alt="">  -->
                 <div class="iconfont icon-QQ bgblue f-46"></div>
                 <div>QQ登陆</div> 
             </div>
             <div>
-                <!-- <img src="../../assets/wx.png" alt="">  -->
                 <div class="iconfont icon-weixin bggreen f-46"></div>
                 <div>微信登录</div>          
             </div>
             <div >
-                <!-- <img src="../../assets/wb.png" alt="">     -->
                 <div class="iconfont icon-weibo bgred f-46"></div>
                 <div>微博登录</div>
             </div>           

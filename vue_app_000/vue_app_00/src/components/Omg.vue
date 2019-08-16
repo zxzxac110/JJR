@@ -87,12 +87,21 @@ export default {
 
     }
   },
-  mounted(){
-       //获取id var lid=location.search/*.split("=")[1]*/
-        console.log(window.location.search)
-       //console.log(lid)
-       // if(lid){this.active=lid}
-        
+  mounted(){                                        
+       var lid=window.location.href.split("=")[1]   //页面跳转
+       if(lid){
+         this.active=lid
+         var n=lid.substr(-1)-1                       //下标
+         }else{
+           this.active="m1"
+           }
+       for(var i=0;i<this.currentIndex.length;i++){
+       if(n==i){
+        this.currentIndex[i].isSelect=true;
+       }else{
+        this.currentIndex[i].isSelect=false;
+       }     
+      }
   },
   beforeUpdate(){
      if(sessionStorage.getItem("uid")>0){//登录执行界面函数

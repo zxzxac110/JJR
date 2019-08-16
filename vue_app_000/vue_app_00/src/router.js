@@ -15,6 +15,7 @@ import deta1 from "./components/pro/deta1.vue"                          //向
 import compan from "./components/pro/compan.vue"                        //向
 import Gagege from "./components/pro/Gagege.vue"                        //l罗
 import Jbxx from "./components/pro/Jbxx.vue"                            //l罗
+import mmfind from "./components/pro/mmfind.vue"                         //找回密码 李
 Vue.use(Router) 
 export default new Router({
   routes: [
@@ -33,5 +34,6 @@ export default new Router({
     {path:'/compan',component:compan},
     {path:'/gagege',component:Gagege},
     {path:'/Jbxx',component:Jbxx},
+    {path:'/mmfind',component:mmfind},
   ]
 })
