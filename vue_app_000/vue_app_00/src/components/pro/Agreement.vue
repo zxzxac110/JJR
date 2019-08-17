@@ -1,6 +1,7 @@
 <!--Agreement 用户协议 -->
 <template>
     <div class="agreement">
+        <myheader></myheader>
         <div>
             <h3>法律声明</h3> 
             <p>
@@ -48,8 +49,11 @@
     </div>
 </template>
 <script>
+import myheader from "../Myheader.vue"
 export default {
-    
+    components:{
+            myheader,
+ },
 }
 </script>
 <style scoped>

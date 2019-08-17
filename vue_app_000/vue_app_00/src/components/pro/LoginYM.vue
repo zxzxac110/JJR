@@ -11,11 +11,6 @@
             </div>
             <mt-field class="ym-field" placeholder="请输入密码" type="password" v-model="upwd" @change="setuname"></mt-field>
         </div>
-        <div>
-            <mt-field type="password" placeholder="请输入密码">
-<span class="iconfont icon-biyan"></span>
-</mt-field>
-        </div>
     </div>
 </template>
 <script>

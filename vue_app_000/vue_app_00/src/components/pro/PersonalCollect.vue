@@ -1,17 +1,18 @@
 <template>
     <div class="PCollect">
-        <div class="list">
+
+         <div class="list" v-for="(item,index) in resuls" :key="index" @click="tzz(item.cid)">
             <div class="details ">
                 <h4>
-                    <span>家具导购</span>
-                    <span class="colorpirce">【5k-10k】</span>
+                    <span>{{item.title}}</span>
+                    <span class="colorpirce">【{{item.salary}}】</span>
                     <span class="f-right">2019-08-10</span>
                 </h4>
                 <div >
-                    <p class="font-16">广东省-东莞市|1-3年经验|中专</p>
+                    <p class="font-16">{{item.province}}省-{{item.cantonal}}市 | {{item.experience}} | {{item.education}}</p>
                     <div class="d-flex">
-                    <p>广州扩樊家具有限公司</p>
-                    <img src="../img/01.png" alt="">
+                    <p>{{item.cname}}</p>
+                    <img :src="item.pic"> 
                     </div>
                 </div>
             </div>
@@ -20,11 +21,38 @@
                 <div class="border"><span class="iconfont icon-tijiaowendang"></span> 投资简历</div>
             </div>
         </div>
+
+       
+
+
+      
     </div>
 </template>
 <script>
 export default {
-    
+    data() {
+        return {
+            resuls:null,
+        }
+    },
+    methods:{
+        tzz(cid){
+            console.log(cid)
+        },
+        //发送ajax
+       databa(){
+           var url="personalcollect"
+           var obj={uid:sessionStorage.getItem("uid")};
+           this.axios.get(url,{params:obj}).then(
+               res=>{
+                console.log(res)
+                this.resuls=res.data.data
+            })
+       } 
+    },
+    created() {
+        this.databa()
+    },
 }
 </script>
 <style scoped>
@@ -85,4 +113,5 @@ export default {
 .PCollect .border{
     border-left: 1px solid #c8c8c8;
 }
+
 </style>

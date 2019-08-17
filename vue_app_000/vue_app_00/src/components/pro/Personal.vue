@@ -1,7 +1,7 @@
 <!-- personal 个人中心 -->
 <template>
     <div class="personal">
-        <div class="personal-to1">
+        <div class="personal-to1" @click="jbxx">
             <div class="portrait">
                 <img src="../img/01.png" alt="">
             </div>
@@ -10,24 +10,24 @@
                 <div class="personal-to1-letter">长沙东塘第一帅</div>
             </div>
         </div>
-        <div class="personal-to2">
-            <div>
-                  <span>0</span> 
+        <div class="personal-to2" @click="perRed">
+            <div data-id="2">
+                  <span data-id="2">0</span> 
                   <br>
                 被查看
                 </div>
-            <div>
-                <span>0</span> 
+            <div data-id="3">
+                <span data-id="3">0</span> 
                  <br>
                 待沟通
             </div>
-            <div>
-                <span>0</span>    
+            <div data-id="4">
+                <span data-id="4">0</span>    
                 <br>
                 面试
             </div>
         </div>
-        <div class="personal-to3">
+        <div class="personal-to3" @click="fenlei">
             <div>
                 <mt-button   class="seek">输入职位或公司</mt-button>
             </div>
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="personal-to4">
-            <div>
+            <div @click="tx(4)">
                 <div>
                 <img src="../../assets/text.png" alt="">
                 </div>
@@ -44,14 +44,14 @@
                 <span class="schedule">20%</span>
                 <span class="iconfont icon-dayufuhao"></span>
             </div>
-            <div>
+            <div @click="tx(3)">
                 <div>
                 <img src="../../assets/time.png" alt="">
                 </div>
                 应聘记录
                 <span class="iconfont icon-dayufuhao"></span>
             </div>
-            <div>
+            <div @click="tx(2)">
                 <div>
                 <img src="../../assets/xing.png" alt="">
                 </div>
@@ -60,14 +60,14 @@
             </div>
         </div>
         <div class="personal-to5">
-            <div>
+            <div @click="tx(1)">
                 <div>
                 <img src="../../assets/dingyue.png" alt="">
                 </div>
                 我的订阅
                 <span class="iconfont icon-dayufuhao"></span>
             </div>
-            <div>
+            <div @click="tx(0)">
                 <div>
                 <img src="../../assets/shez.png" alt="">
                 </div>
@@ -79,7 +79,26 @@
 </template>
 <script>
 export default {
-    
+    data(){
+        return{
+            txarr:["personalset","personaldy","personalcollect","personalrecord","personalresume"]
+        }
+    },
+    methods:{
+       tx(a){  
+       this.$router.push(`/${this.txarr[a]}`) 
+       },
+       jbxx(){
+       this.$router.push("/jbxx") 
+       },
+       perRed(e){
+           var id=e.target.dataset.id
+           this.$router.push(`/personalrecord?id=${id}`) 
+       },
+       fenlei(){//跳转分类详情页.待做
+            this.$router.push(`/fenlei`) 
+       }
+    },
 }
 </script>
 <style scoped>

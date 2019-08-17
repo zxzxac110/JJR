@@ -18,7 +18,7 @@
         </div>
         <div class="PersonalDY">
             <div class="details">
-                <div>
+                <div @click="qiuzhi">
                     <div><i class="regbor"></i>求职意向</div>
                     <div>
                         <input type="text" value="">
@@ -108,7 +108,9 @@ export default {
         }
     }, 
     methods: {
-        
+        qiuzhi(){
+            this.$router.push("/qiuzhi")
+        }
     },
     mounted(){ //加载后改变进度条的颜色
         document.querySelector(".mt-progress-progress").style.background="#e63038"

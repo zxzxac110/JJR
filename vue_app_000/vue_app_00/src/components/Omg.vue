@@ -15,7 +15,7 @@
         <mt-tab-container-item id="m3">
           <mt-tab-container v-model="islogin">
             <mt-tab-container-item id="no">
-                      <login></login>      
+                      <login @changeUrl="getUrl"></login>      
             </mt-tab-container-item>
             <mt-tab-container-item id="yes">
                       <personal></personal>
@@ -65,10 +65,11 @@ export default {
             {isSelect:true},
             {isSelect:false},
             {isSelect:false}],
-            islogin:"no"
+            islogin:"no",     //判断登录状态.显示要显示的面板
+            logindata:""      //登录后跳转变量函数
             }       
         },
-        methods: {
+    methods: {
        changeState(n){
       //函数功能:将当前参数下标
       //对应数组值修改true其它修改false
@@ -82,10 +83,17 @@ export default {
         //4:其它元素修改false
         this.currentIndex[i].isSelect=false;
        }
-       
       }
-
-    }
+    },
+    getUrl(data){
+      this.logindata=data.logindata
+    },
+  },
+  watch: {
+    logindata(){
+      this.islogin="yes";
+      console.log(this.logindata)
+    } 
   },
   mounted(){                                        
        var lid=window.location.href.split("=")[1]   //页面跳转
@@ -103,14 +111,14 @@ export default {
        }     
       }
   },
-  beforeUpdate(){
+  updated(){
      if(sessionStorage.getItem("uid")>0){//登录执行界面函数
         this.islogin="yes";
     }else{
         this.islogin="no"
     }
   },
-    components:{
+  components:{
             "tabbaricon":TabBarIcon,
             login,
             myheader,

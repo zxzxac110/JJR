@@ -77,3 +77,16 @@ app.get("/reg",(req,res)=>{
      }
   });
 //http://127.0.0.1:3000/login
+//---------------------------------------------收藏
+app.get("/personalcollect",(req,res)=>{
+    var uid=req.query.uid;
+    var sql=`SELECT cid,title,salary,time,cname,experience,education,pic,province,cantonal FROM career_collect WHERE uid=?`
+    pool.query(sql,[uid],(err,result)=>{
+        if(err) throw err;
+        if(result.length>0){
+            res.send({code:1,msg:"查询成功",data:result})
+        }else{
+            res.send({code:-1,msg:"查询失败"})
+        }
+    })
+})

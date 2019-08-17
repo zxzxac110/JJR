@@ -1,9 +1,22 @@
 <template>
  <div class="app-container">
+    <!-- 头 -->
+    <myheader></myheader>
+    <!--头-->
     <router-view></router-view>
  </div>
 </template>
-
+<script>
+// 引入头部
+import myheader from "./components/Myheader.vue"
+export default {
+   name:'app',
+   components:{
+      myheader,
+   }
+}
+//引入头部
+</script>
 <style>
    .app-container{
      padding-top:40px;

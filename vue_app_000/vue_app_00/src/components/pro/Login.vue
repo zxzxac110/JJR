@@ -59,8 +59,11 @@ export default {
             yzmkg:true,
             smsColor:"",
             yamData:"我是要输入的验证码啊啊啊",
-            getyzmh:"getyzmh"
+            getyzmh:"getyzmh",
         }
+    },
+     props:{
+         daddy:{default:""} 
     },
     methods:{
         getUrl(data){   //得到子组件参数 登录注册函数函数
@@ -82,7 +85,6 @@ export default {
             if(ym.code==1){
                 var uname=ym.uname
                 var upwd=ym.upwd
-                console.log(uname,upwd)
                 /*字母开头 7-13位 */
                 var reg=new RegExp("^[a-zA-Z][a-z0-9]{6,12}$","i")        
                 if(!reg.test(uname)){
@@ -114,7 +116,7 @@ export default {
                      if(res.data.code==1){
                          sessionStorage.setItem("uid", res.data.data[0].uid);
                          sessionStorage.setItem("uname", res.data.data[0].uname);
-                         console.log(455)
+                         this.$emit('changeUrl',{logindata:"m3"})     //登录成功.传递参数给父组件
                          this.$router.push("/omg?id=m3")
                         }else{
                        this.$toast({message:res.data.msg})

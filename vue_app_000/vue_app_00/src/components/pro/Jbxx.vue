@@ -10,7 +10,7 @@
             头像编辑
           </div>
           <input type="file" accept="image/png,image/jpeg,image/gif,image/jpg" class="l_uplo">
-          <i class="iconfont l_dayu">&#xe6c7;</i>
+          <i class="iconfont l_dayu">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">姓名</span>
@@ -31,37 +31,43 @@
         <div class="l_ipt">
           <span class="l_text">出生日期</span>
           <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">参加工作时间</span>
           <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">性别</span>
           <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">婚姻状况</span>
           <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">最高学历</span>
           <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">籍贯</span>
           <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">现所在地</span>
           <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_textare">
           <h3 style="font-weight:normal;height:30px;margin:0;" class="l_text">自我介绍</h3>
-          <textarea name id cols="30" rows="10"></textarea>
+          <textarea style="margin:0" name id cols="30" rows="10"></textarea>
           <p class="l_canW">还可以输入15字</p>
         </div>
-        <div style="height:50px;"></div>
       </main>
       <div style="text-align: center;">
         <div class="l_primary">
@@ -91,6 +97,7 @@ div{
   font-size: 16px;
 }
 .l_cube{
+  margin-top:40px; 
   position: fixed;
   z-index: 10;
   top: 0;
@@ -114,7 +121,6 @@ div{
   height: 60px;
   margin-left: 15px;
   margin-right: 14px;
-  display: inline-block;
   border-radius: 50%;
   margin-top: 12px;
   float: left;
@@ -214,5 +220,12 @@ div{
   border-radius: 2px;
   font-size: 14px;
   margin:32px 18px 8px;
+}
+.l_dayuh{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 15px;
+  color: #c8c8c8;
 }
 </style>

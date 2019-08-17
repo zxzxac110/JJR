@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloContainer from "./components/HelloWorld.vue"
 import Omg from "./components/Omg.vue"                                  //主界面 向
+import myheader from "./components/Myheader.vue"                        //tou 向
 import Reg from "./components/pro/Reg.vue"                              //注册 李
-import Login from "./components/pro/Login.vue"                              //注册 李
+import Login from "./components/pro/Login.vue"                          //登录 李
 import Agreement from "./components/pro/Agreement.vue"                  //申明协议 李
 import Personal from "./components/pro/Personal.vue"                    //用户个人中心 李
 import PersonalSet from "./components/pro/PersonalSet.vue"              //用户个人中心-设置 李
@@ -15,7 +16,8 @@ import deta1 from "./components/pro/deta1.vue"                          //向
 import compan from "./components/pro/compan.vue"                        //向
 import Gagege from "./components/pro/Gagege.vue"                        //l罗
 import Jbxx from "./components/pro/Jbxx.vue"                            //l罗
-import mmfind from "./components/pro/mmfind.vue"                         //找回密码 李
+import qiuzhi from "./components/pro/Qiuzhi.vue"                            //l罗
+//import mmfind from "./components/pro/mmfind.vue"                      //找回密码 李 未完成
 Vue.use(Router) 
 export default new Router({
   routes: [
@@ -34,6 +36,8 @@ export default new Router({
     {path:'/compan',component:compan},
     {path:'/gagege',component:Gagege},
     {path:'/Jbxx',component:Jbxx},
-    {path:'/mmfind',component:mmfind},
+    {path:'/myheader',component:myheader},
+    {path:'/qiuzhi',component:qiuzhi},
+    //{path:'/mmfind',component:mmfind},
   ]
 })

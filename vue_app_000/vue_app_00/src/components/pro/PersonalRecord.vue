@@ -1,13 +1,17 @@
 <!-- 应聘记录 -->
 <template>
     <div class="PRecord">
-        <div @click="tab" class="PRecord-list">
-            <div data-id="qb1" class="list-active">全部</div>
-            <div data-id="td2">投递</div>
-            <div data-id="ck3">已查看</div>
-            <div data-id="gt4">待沟通</div>
-            <div data-id="ms5">面试</div>
-            <div data-id="nohs6">不合适</div>
+        <div  class="PRecord-list">
+              <div v-for="(item, index) in list" :key="index" @click="add(index)" 
+			:class="isActive == index ? 'list-active' : ''">
+                    {{item}}
+              </div>          
+            <!-- <div data-id="qb1" class="list-active">全部</div>
+            <div data-id="td2" >投递</div>
+            <div data-id="ck3" >已查看</div>
+            <div data-id="gt4" >待沟通</div>
+            <div data-id="ms5" >面试</div>
+            <div data-id="nohs6" >不合适</div> -->     
         </div>
         <div class="wudata" >
         <img id="aa" src="../../assets/zwsj.png" alt="">
@@ -38,23 +42,28 @@
 export default {
     data(){
         return{
+            isActive:0,
             active:"qb1",
+            li:["qb1","td2","ck3","gt4","ms5","nohs6"],
+            list:["全部","投递","已查看","待沟通","面试","不合适"],
         }
-    },
-    methods: {
-        tab(e){
-            if(e.target.dataset.id){
-                var divlists=document.querySelectorAll(".PRecord-list>div")
-                var divlist=e.target;
-                this.active=divlist.dataset.id;
-                for(var elem of divlists){  //清除所有css
-                    elem.className=""
-                }
-                divlist.className="list-active";//此时添加css
-            }
-        }
-    },
-}
+     },
+     methods: {
+         add(index){
+            this.isActive=index
+            this.active=this.li[index]
+        },
+          },
+   mounted(){                                       
+       var lid=window.location.href.split("=")[1]  //获取地址信息
+       if(lid>0){
+          this.active=lid
+          this.add(lid)                          //调用函数
+           }else{
+            this.add(0)
+           }
+   } 
+ }
 </script>
 <style scope>
 /* 暂无数据图片 */
@@ -74,8 +83,7 @@ export default {
     text-align: center;
     line-height: 38px;
     width:16%;
-    margin:0 2% ;
-  
+     padding:0 2% ;
 }
 .PRecord-list div.list-active{
    border-bottom:3px solid red; 

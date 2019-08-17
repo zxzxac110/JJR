@@ -29,7 +29,7 @@
             <mt-field class="w-45" placeholder="验证码" v-model="uyzm" ></mt-field>
             <span class="spans" @click="Yzm" :class="smsColor">{{yzmspan}}</span>
         </div> 
-        <div class="regzpp">注册即视为同意JJR家具招聘<span>《用户协议》</span></div>     
+        <div class="regzpp">注册即视为同意JJR家具招聘<span @click="agreement">《用户协议》</span></div>   
         <mt-button @click="reg"  class="tlogin">立即注册</mt-button>
         <mt-button @click="login"  class="treg" >登录</mt-button>
     </div>
@@ -52,9 +52,15 @@ export default {
         }
     },
     methods: {
+//跳转用户协议
+        agreement(){
+             this.$router.push("/agreement")
+        },
+//跳转登录界面
         login(){
             this.$router.push("/omg?id=m3")
         },
+//注册功能
         reg(){
             var uname=this.uname
             var upwd=this.upwd
@@ -92,6 +98,7 @@ export default {
                  }
              )
         },
+//发送手机验证码
          Yzm(){                                                 //发送验证码函数
             var uphone=this.uphone
             if(!(/^[1][3-9]\d{9}$/i.test(uphone))){             //判断手机格式         
