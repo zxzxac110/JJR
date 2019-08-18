@@ -1,6 +1,6 @@
 const express=require("express");
 const mysql=require("mysql");
-const bodyParser=require('body-parser');
+const bodyParser=require('body-parser');//post 请求需要
 const cors=require("cors");//session
 const session=require("express-session");
 var pool=mysql.createPool({
@@ -23,17 +23,17 @@ app.use(session({
 }))
 app.use(express.static("public"));
 app.listen(3000);
+app.use(bodyParser.urlencoded({  ///post请求需要
+    extended:false
+  }) );
 //-----------------------------------------------------注册
-// post 请求有问题.待解决
-//app.post("/reg",(req,res)=>{
-app.get("/reg",(req,res)=>{
-    console.log(req)
-   var {uname,upwd,uphone}=req.query
+app.post("/reg",(req,res)=>{
+   var {uname,upwd,uphone}=req.body
    var sql='SELECT uname FROM career_user WHERE uname=?'
    pool.query(sql,[uname],function(err,result){
     if(err) throw err;
     if(result.length>0){res.send({code:-1,msg:"已存在的用户名"});return;}
-   var sql=`INSERT INTO career_user VALUES(null,?,?,?,?)`
+   var sql='INSERT INTO `career_user`( `uid`, `uname`, `password`, `nickname`, `phone`) VALUES (null,?,?,?,?)'
    pool.query(sql,[uname,upwd,uname,uphone],function(err,result){
         if(err) throw err;
         if(result.affectedRows>0){
@@ -49,7 +49,7 @@ app.get("/reg",(req,res)=>{
  app.get("/login",(req,res)=>{
      if(req.query.uphone){
          console.log(req.query)
-        var sql='SELECT uid,uname FROM career_user WHERE phone=?'
+        var sql='SELECT uid,nickname FROM career_user WHERE phone=?'
         pool.query(sql,[req.query.uphone],function(err,result){
              if(err) throw err;
          if(result.length>0){
@@ -63,7 +63,7 @@ app.get("/reg",(req,res)=>{
      }else{
        console.log(req.query)
         var {uname,upwd}=req.query
-        var sql='SELECT uid,uname FROM career_user WHERE uname=? AND password=?'
+        var sql='SELECT uid,nickname FROM career_user WHERE uname=? AND password=?'
         pool.query(sql,[uname,upwd],function(err,result){
              if(err) throw err;
          if(result.length>0){
@@ -77,12 +77,27 @@ app.get("/reg",(req,res)=>{
      }
   });
 //http://127.0.0.1:3000/login
-//---------------------------------------------收藏
+//---------------------------------------------获取收藏
 app.get("/personalcollect",(req,res)=>{
     var uid=req.query.uid;
     var sql=`SELECT cid,title,salary,time,cname,experience,education,pic,province,cantonal FROM career_collect WHERE uid=?`
     pool.query(sql,[uid],(err,result)=>{
         if(err) throw err;
+        if(result.length>0){
+            res.send({code:1,msg:"查询成功",data:result})
+        }else{
+            res.send({code:-1,msg:"查询失败"})
+        }
+    })
+})
+//--------------------------------------------个人中心获取部分个人信息
+app.get("/personal",(req,res)=>{
+    var uid=req.query.uid;
+    console.log(uid)
+    var sql=`SELECT nickname,sex,station FROM career_user WHERE uid=?`
+    pool.query(sql,[uid],(err,result)=>{
+        console.log(result)
+        if(err)throw err;
         if(result.length>0){
             res.send({code:1,msg:"查询成功",data:result})
         }else{

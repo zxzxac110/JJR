@@ -18,7 +18,7 @@
                       <login @changeUrl="getUrl"></login>      
             </mt-tab-container-item>
             <mt-tab-container-item id="yes">
-                      <personal></personal>
+                      <personal :msg="personald"></personal>
             </mt-tab-container-item>
           </mt-tab-container>               
         </mt-tab-container-item>
@@ -66,7 +66,8 @@ export default {
             {isSelect:false},
             {isSelect:false}],
             islogin:"no",     //判断登录状态.显示要显示的面板
-            logindata:""      //登录后跳转变量函数
+            logindata:"",      //登录后跳转变量函数
+            personald:[]       //发送给个人界面的函数
             }       
         },
     methods: {
@@ -92,23 +93,43 @@ export default {
   watch: {
     logindata(){
       this.islogin="yes";
-      console.log(this.logindata)
-    } 
+    },
+    islogin(){                                //如果面板变化 就发送数据到子面板
+      if(this.islogin=="yes"){
+        var uid=sessionStorage.getItem("uid");
+        if(uid){
+        var url="personal"
+        var obj={uid}
+         this.axios.get(url,{params:obj}).then(     //获取头部数据
+            res=>{
+                if(res.data.code>0){
+                    this.personald=res.data.data[0] //保持头部信息
+                }else{
+                    this.$toast({message:res.data.msg})//输出弹窗数据
+                }
+            })
+          }
+      }
+
+
+
+    }
   },
   mounted(){                                        
-       var lid=window.location.href.split("=")[1]   //页面跳转
-       if(lid){
+       var lid=window.location.href.split("=")[1]   //页面跳转得到参数
+       if(lid){                                     //有无参数的面板操作
          this.active=lid
          var n=lid.substr(-1)-1                       //下标
          }else{
            this.active="m1"
            }
-       for(var i=0;i<this.currentIndex.length;i++){
+       for(var i=0;i<this.currentIndex.length;i++){ //循环赋值底部导航样式
        if(n==i){
         this.currentIndex[i].isSelect=true;
        }else{
         this.currentIndex[i].isSelect=false;
-       }     
+       }  
+       if(!n){this.currentIndex[0].isSelect=true;} //如果没带参数默认第一个带有样式 
       }
   },
   updated(){

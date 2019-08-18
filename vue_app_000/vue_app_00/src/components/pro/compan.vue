@@ -1,16 +1,5 @@
 <template>
 <div>
-    <div>
-        <!-- 这是头部 -->
-      <div style="margin-top:40px"></div>
-      <mt-header title="公司介绍">
-      <router-link to="/" slot="left">
-      <mt-button icon="back">返回</mt-button>
-      </router-link>
-      <mt-button slot="right"><img src="../img/07.png" height="30" width="30" slot="icon">
-      </mt-button>
-      </mt-header>
-    </div>
     <!-- 这是主体 -->
         <!-- 轮播图 -->
     <div style="height:195px">

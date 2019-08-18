@@ -33,7 +33,10 @@
 <script>
 export default {
     methods: {
-        outreg(){console.log("退出登录")}
+        outreg(){
+            sessionStorage.clear();
+            this.$router.push("/omg?id=m3");
+        }
     },
 }
 </script>

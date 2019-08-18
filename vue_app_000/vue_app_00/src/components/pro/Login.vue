@@ -115,7 +115,7 @@ export default {
                     res=>{
                      if(res.data.code==1){
                          sessionStorage.setItem("uid", res.data.data[0].uid);
-                         sessionStorage.setItem("uname", res.data.data[0].uname);
+                         sessionStorage.setItem("nickname", res.data.data[0].nickname);
                          this.$emit('changeUrl',{logindata:"m3"})     //登录成功.传递参数给父组件
                          this.$router.push("/omg?id=m3")
                         }else{

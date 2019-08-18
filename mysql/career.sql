@@ -7,22 +7,16 @@ CREATE TABLE career_user(uid INT PRIMARY KEY AUTO_INCREMENT,
                          uname VARCHAR(36),       #账号
 			 password VARCHAR(36),	  #密码
 			 nickname VARCHAR(36),    #昵称/真实姓名
-                         phone VARCHAR(50)	  #电话
-);
-#2用户简历信息
-CREATE TABLE career_mmfind(ujid INT PRIMARY KEY AUTO_INCREMENT, #简历id
-                           uid  INT,			#用户id
-			   realname VARCHAR(36),		#真实姓名
-                           sex INT,				#性别	  1男/0女
-			   age INT,				#年龄
-                           phone VARCHAR(50),			#电话
-                           email VARCHAR(50),			#邮箱			 
-			   education VARCHAR(150),		#学历
-			   station VARCHAR(150),		#求职岗位
-			   reachtion VARCHAR(150),		#到岗时间
-			   marital VARCHAR(150),		#婚姻状态  1已婚/0未婚
-			   province VARCHAR(150),		#籍贯-省
-			   city	 VARCHAR(150)			#籍贯-市
+                         phone VARCHAR(50),	  #电话
+			 sex INT,			#性别	  1男/0女
+			 age INT,			#年龄
+                         email VARCHAR(50),		#邮箱			 
+			 education VARCHAR(150),	#学历
+			 station VARCHAR(150),		#求职岗位
+			 reachtion VARCHAR(150),	#到岗时间
+			 marital VARCHAR(150),		#婚姻状态  1已婚/0未婚
+			 province VARCHAR(150),		#籍贯-省
+			 city	 VARCHAR(150)		#籍贯-市
 );
 #3公司信息
 CREATE TABLE career_company(cid INT PRIMARY KEY AUTO_INCREMENT,
@@ -54,9 +48,7 @@ CREATE TABLE career_collect(coid INT PRIMARY KEY AUTO_INCREMENT,
 			    cantonal VARCHAR(50)     #市区
 );
 #1用户基本信息
-INSERT INTO `career_user`(`uid`, `uname`, `password`, `nickname`, `phone`) VALUES (1, 'a111111', 'a111111', 'a111111', '13112345678');
-#2用户简历信息
-INSERT INTO `career_mmfind`(`ujid`, `uid`, `realname`, `sex`, `age`, `phone`, `email`, `education`, `station`, `reachtion`, `marital`, `province`, `city`) VALUES (1, '1', '刘志祥', 1, 18, '13112345678', '12345678@qq.com', '博士', '前端工程师', '随时', '0', '湖南', '长沙');
+INSERT INTO `career_user`( `uid`, `uname`, `password`, `nickname`, `phone`,`sex`, `age`, `email`, `education`, `station`, `reachtion`, `marital`, `province`, `city`) VALUES (1, 'a111111', 'a111111', 'a111111', '13112345678',1, 18,  '12345678@qq.com', '博士', '前端工程师', '随时', '0', '湖南', '长沙');
 #3公司信息
 INSERT INTO `career_company`(`cid`, `title`, `time`, `details`, `salary`, `cname`, `pic`, `experience`, `education`, `linkman`, `phone`, `province`, `cantonal`) VALUES (1, '促销/导购员', '1565960766904', '接待顾客的咨询，了顾客的需求并达成销售。做好成交客户的客情关系，建立良好的长期合作关系。', '5k-10k', '广东佛山顺德宝马家具有限公司', '../../assets/baoma.jpg', '一年以下', '初中', '罗先生', '13523465658', '广东', '佛山');
 INSERT INTO `career_company`(`cid`, `title`, `time`, `details`, `salary`, `cname`, `pic`, `experience`, `education`, `linkman`, `phone`, `province`, `cantonal`) VALUES (2, '家具/家居用品设计', '1565960123456', '熟悉家具设计工艺及软件，对工作负责。\r\n熟悉设计量尺，具有一定沟通能力。\r\n具有两年以上定制家具设计经验。', '2k-5k', '广西桂林城威家具有限公司', '../../assets/chengwei.jpg', '1-3年', '高中', '李先生', '13552663258', '广西', '桂林');

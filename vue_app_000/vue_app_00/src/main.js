@@ -16,6 +16,7 @@ axios.defaults.withCredentials=true
 Vue.prototype.axios=axios;
 import qs from 'qs';
 Vue.prototype.qs = qs;
+
 import Vuex from "vuex"
 Vue.use(Vuex)//注册vuex
 var store=new Vuex.Store({//创建VUEX存储实例对象
@@ -36,5 +37,5 @@ var store=new Vuex.Store({//创建VUEX存储实例对象
 new Vue({
   router,
   render: h => h(App),
-  //store
+  store
 }).$mount('#app')

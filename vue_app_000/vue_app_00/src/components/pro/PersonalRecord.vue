@@ -5,13 +5,7 @@
               <div v-for="(item, index) in list" :key="index" @click="add(index)" 
 			:class="isActive == index ? 'list-active' : ''">
                     {{item}}
-              </div>          
-            <!-- <div data-id="qb1" class="list-active">全部</div>
-            <div data-id="td2" >投递</div>
-            <div data-id="ck3" >已查看</div>
-            <div data-id="gt4" >待沟通</div>
-            <div data-id="ms5" >面试</div>
-            <div data-id="nohs6" >不合适</div> -->     
+              </div>             
         </div>
         <div class="wudata" >
         <img id="aa" src="../../assets/zwsj.png" alt="">

@@ -6,8 +6,8 @@
                 <img src="../img/01.png" alt="">
             </div>
             <div class="personal-to1-gr">
-                <div>刘志祥<span>男</span></div>
-                <div class="personal-to1-letter">长沙东塘第一帅</div>
+                <div>{{msg.nickname}}<span>{{msg.sex==0?"女":"男"}}</span></div>
+                <div class="personal-to1-letter">{{msg.station}}</div>
             </div>
         </div>
         <div class="personal-to2" @click="perRed">
@@ -81,7 +81,8 @@
 export default {
     data(){
         return{
-            txarr:["personalset","personaldy","personalcollect","personalrecord","personalresume"]
+            txarr:["personalset","personaldy","personalcollect","personalrecord","personalresume"],
+           // personal:[],//头部信息变量
         }
     },
     methods:{
@@ -97,8 +98,30 @@ export default {
        },
        fenlei(){//跳转分类详情页.待做
             this.$router.push(`/fenlei`) 
-       }
-    },
+       },
+    /*   chang(){   
+           console.log("调用chang")
+        var uid=sessionStorage.getItem("uid");
+        if(uid){
+        var url="personal"
+        var obj={uid}
+         this.axios.get(url,{params:obj}).then(  //获取头部数据
+            res=>{
+                if(res.data.code>0){
+                    this.personal=res.data.data[0]
+                }else{
+                    this.$toast({message:res.data.msg})//输出弹窗数据
+                }
+            })
+          }
+       },*/
+    },  
+ /*   mounted(){
+        this.chang()
+    },*/
+    props:{                 //申明接受父组件数据
+        msg:{default:""}    //得到的头部发送过来的AJAX数据
+    }
 }
 </script>
 <style scoped>
