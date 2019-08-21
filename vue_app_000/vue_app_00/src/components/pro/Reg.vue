@@ -84,9 +84,6 @@ export default {
                  }
              var url="reg";
              var obj={uname,upwd,uphone}
-//            console.log(obj)
-//            console.log(this.qs.stringify(obj))
-            // post请求有问题.无法的得到数据 待解决
             this.axios.post(url,this.qs.stringify(obj)).then(  //post 需要传送一个字符串
             res=>{
                       if(res.data.code>0){

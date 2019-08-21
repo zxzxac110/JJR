@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-
 import MintUI from "mint-ui"            //1.完整引入mint-ui库
 import'mint-ui/lib/style.css'           //1.引入样式
-
 Vue.config.productionTip = false
 import './lib/mui/css/mui.css'
 import './lib/mui/css/icons-extra.css'
@@ -16,6 +14,9 @@ axios.defaults.withCredentials=true
 Vue.prototype.axios=axios;
 import qs from 'qs';
 Vue.prototype.qs = qs;
+
+import { DatetimePicker } from 'mint-ui';
+Vue.component(DatetimePicker.name, DatetimePicker);
 
 import Vuex from "vuex"
 Vue.use(Vuex)//注册vuex

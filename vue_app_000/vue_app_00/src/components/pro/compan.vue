@@ -70,8 +70,13 @@
 <script>
 export default {
     data(){
-        return{}
-    }
+        return{
+            list:[]//数据库传来的数据
+        }
+    },
+    methods: {
+    
+    },
 }
 </script>
 <style scoped>

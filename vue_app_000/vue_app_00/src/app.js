@@ -22,6 +22,7 @@ app.use(session({
     saveUninitialized:true
 }))
 app.use(express.static("public"));
+app.use(express.static("assets"));
 app.listen(3000);
 app.use(bodyParser.urlencoded({  ///post请求需要
     extended:false
@@ -80,7 +81,9 @@ app.post("/reg",(req,res)=>{
 //---------------------------------------------获取收藏
 app.get("/personalcollect",(req,res)=>{
     var uid=req.query.uid;
-    var sql=`SELECT cid,title,salary,time,cname,experience,education,pic,province,cantonal FROM career_collect WHERE uid=?`
+    var coid=req.query.coid;                    
+    function cx(){                                      //查询函数
+    var sql=`SELECT coid,cid,title,salary,time,cname,experience,education,pic,province,cantonal FROM career_collect WHERE uid=?`
     pool.query(sql,[uid],(err,result)=>{
         if(err) throw err;
         if(result.length>0){
@@ -89,11 +92,25 @@ app.get("/personalcollect",(req,res)=>{
             res.send({code:-1,msg:"查询失败"})
         }
     })
+   } 
+    if(coid){
+        var sql=`DELETE  FROM career_collect  WHERE  coid=?`
+        pool.query(sql,[coid],(err,result)=>{        //删除指定数据
+            if(err)throw err;
+            if(result.affectedRows>0){
+                cx()                                //调用查询函数
+            }else{
+                res.send({code:-1,msg:"删除失败"})
+                } 
+        })
+    }else{
+               cx();
+    }
 })
+//http://127.0.0.1:3000/personalcollect?uid=1
 //--------------------------------------------个人中心获取部分个人信息
 app.get("/personal",(req,res)=>{
     var uid=req.query.uid;
-    console.log(uid)
     var sql=`SELECT nickname,sex,station FROM career_user WHERE uid=?`
     pool.query(sql,[uid],(err,result)=>{
         console.log(result)
@@ -104,4 +121,55 @@ app.get("/personal",(req,res)=>{
             res.send({code:-1,msg:"查询失败"})
         }
     })
+})
+//-------------------------------------公司详情页
+app.get("/data1",(req,res)=>{
+    var cid=req.query.cid;
+    var uid=req.query.uid;
+    var obj=req.query
+    console.log(req.query)
+    console.log(uid)
+    console.log(!req.query.title)
+    if(!req.query.title){   //说明没有点击收藏按钮.只需要查询数据显示在页面
+    var sql=`SELECT cid,title,time,details,salary,cname,pic,experience,education,linkman,phone,province,cantonal FROM career_company WHERE cid=?`
+    pool.query(sql,[cid],(err,result)=>{    //查询页面具体数据
+        if(err)throw err;
+        if(result.length>0){
+            var cxres=result
+            console.log(cxres)
+            var sql=`SELECT coid FROM career_collect WHERE uid=? AND cid=?`
+            pool.query(sql,[uid,cid],(err,result)=>{
+                if(result.length>0){
+                    cxres[0].aixin="09.png";
+                    res.send({code:1,msg:"查询成功",data:cxres});
+                }else{
+                    cxres[0].aixin="08.png";
+                    res.send({code:1,msg:"查询成功",data:cxres});
+                }
+            })
+        }else{
+            res.send({code:-1,msg:"查询失败"})
+        }
+    })
+     }else{  //需要先查询有没有收藏在决定是否收藏
+         var sql=`SELECT coid FROM career_collect WHERE uid=? AND cid=?`
+         pool.query(sql,[uid,cid],(err,result)=>{
+             if(err)throw err;
+             console.log(result.length)
+             if(result.length==0){
+                  var sql=`INSERT INTO career_collect SET ?`
+                 pool.query(sql,[obj],function(err,result){
+                     if(err) throw err;
+                     if(result.affectedRows>0){ 
+                         res.send({code:1,msg:'收藏成功'});
+                   }else{
+                         res.send({code:1,msg:'收藏失败'})
+                   }
+                    })
+            }else{
+                res.send({code:-1,msg:"已经收藏"})
+            }
+         })
+    }
+
 })

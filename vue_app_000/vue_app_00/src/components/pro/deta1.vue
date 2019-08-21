@@ -3,33 +3,33 @@
     <!-- 滚动指令 -->
     <div>
         <!-- 顶部 -->
-      <div style="margin-top:48px"></div>
+       <div></div>
       <mt-header title="职业详情">
-      <router-link to="/" slot="left">
+      <router-link to="/omg" slot="left">
       <mt-button icon="back">返回</mt-button>
       </router-link>
       <mt-button slot="right"><img src="../img/07.png" height="30" width="30" slot="icon">
       </mt-button>
-      </mt-header>
+      </mt-header> 
       <!-- 中间内容 -->
         <div class="k1">
-          <div class="k2">
+           <div class="k2">
               <div class="k3">
                   <span>所属部门：市场营销部</span>
-                  <span>7小时前</span>
+                  <span>{{list.time}}</span>
               </div>
-              <div class="k4">淘宝（天猫）客服</div>
-              <div class="k5">4k-6k</div>
+             <div class="k4">{{list.title}}</div>
+              <div class="k5">{{list.salary}}</div>
               <div class="k6">
-                  <span>高中</span>
-                  <span>3年</span>
-                  <span>佛山市</span>
+                  <span>{{list.education}}</span>
+                  <span>{{list.experience}}</span>
+                  <span>{{list.cantonal}}</span>
                   <span>22-35岁</span>
               </div>
-              <a href="javascript:;" class="k7">
-                  <img src="../img/11.png">
+               <a href="javascript:;" class="k7">
+                  <img :src="'http://127.0.0.1:3000/'+list.pic">
                   <div class="k8">
-                      <div class="k9">佛山市顺德区今日美家家具有限公司</div>
+                      <div class="k9">{{list.cname}}</div>
                       <div class="k10">
                           <span>实木家具,板式家具,软体家具</span>
                           <span class="k11">200-500人</span>
@@ -43,10 +43,11 @@
                   <img src="../img/10.png" alt="">
               </div>
               <div class="q3">
-                  <span>淘宝（天猫）客服</span>
+                  <span>{{list.title}}</span>
               </div>
               <div class="q4">岗位职责</div>
-              <div class="q5">1. 通过聊天软件,耐心回答客户提出各种问题,达成双方愉快交易，处理订货信息 <br>2. 熟悉淘宝的各种操作规则,处理客户要求,修改价格,管理店铺等; <br>3. 解答顾客提问，引导顾客进行购买，促成交易。 <br>4. 为网上客户提供售后服务,并以良好的心态及时解决客户提出的问题和要求,提供售后服务并能解决一般投诉。 <br>欢迎有兴趣的小伙伴加盟！！！</div>
+              <div>{{list.details}}</div>
+             <!-- <div class="q5">1. 通过聊天软件,耐心回答客户提出各种问题,达成双方愉快交易，处理订货信息 <br>2. 熟悉淘宝的各种操作规则,处理客户要求,修改价格,管理店铺等; <br>3. 解答顾客提问，引导顾客进行购买，促成交易。 <br>4. 为网上客户提供售后服务,并以良好的心态及时解决客户提出的问题和要求,提供售后服务并能解决一般投诉。 <br>欢迎有兴趣的小伙伴加盟！！！</div> -->
           </div>
           <div class="z1">
                   <div class="z2">
@@ -55,8 +56,8 @@
                   <div class="z3">
                       <span>五险</span>
                       <span>包住宿</span>
-                      <span>占位中</span>
-                      <span>占位中</span>
+                      <span>包分配对象</span>
+                      <span>月薪上不封顶</span>
                   </div>
           </div>
           <div class="d1"> 
@@ -74,35 +75,33 @@
               </div>
               <div class="zw3">
                   <div class="zw4">
-                     <span class="sp1">向</span>
-                     <span class="sp2">某人</span>
+                     <span class="sp1">{{linkman}}</span>
+                     <span class="sp2">{{list.linkman}}</span>
                   </div>
                   <div class="zw5">
                       <div class="zw6">
                           <i></i>
                           <div class="zw7">
-                              <a href="#">1888888888</a>
+                              <a href="#">{{list.phone}}</a>
                           </div>
                       </div>
                   </div>
-              </div>
+              </div> 
           </div>
-      </div>
-
+      </div> 
       <!-- 底部 -->
       <div style="margin-bottom:48px"></div>
     <!-- <mt-spinner type="triple-bounce" color="red"  :size="60" ></mt-spinner> -->
     <mt-tabbar >
-    <mt-tab-item id="s1">
-    <img slot="icon" src="../img/08.png">
+    <mt-tab-item id="s1"  @click.native="shoucang(list.cid)">
+    <img slot="icon" :src="'http://127.0.0.1:3000/'+collectimg">
     收藏
     </mt-tab-item>
   
     <mt-tab-item id="s1" >
         <mt-button @click="openConfirm" size="normal" type="danger">
     投递简历
-        </mt-button>
-       
+        </mt-button> 
     </mt-tab-item>
     </mt-tabbar>
     </div>
@@ -111,17 +110,47 @@
 <script>
 export default {
     data(){
-        return {}
-    },
-    mounted:function(){
-  	
+        return {
+            list:{},
+            linkman:"",
+            collectimg:"08.png"
+        }
     },
     methods: {
-        handleClose: function(){
-          console.log("返回")
-
-          
-      },
+        shoucang:function(cid){         //收藏函数
+            var url="data1";
+            var time=new Date().getTime()
+            var uid=sessionStorage.getItem("uid");
+            var {title,salary,cname,experience,education,pic,province,cantonal}=this.list
+            var obj={uid,
+                    cid,
+                    title,
+                    salary,
+                    time,
+                    cname,
+                    experience,
+                    education,
+                    pic,
+                    province,
+                    cantonal
+                    };
+            if(!uid){
+                this.$toast({message:"请先登录"});
+                this.$router.push("/omg?id=m3");
+                return;
+                }
+                console.log(obj)
+            this.axios.get(url,{params:obj}).then(
+                res=>{
+                    if(res.data.code>0){
+                        this.collectimg="09.png"     //改变图片样式
+                this.$toast({message:res.data.msg});    //弹窗
+                    }else{
+                this.$toast({message:res.data.msg})   //弹窗
+                    }
+                }
+            )
+        },
       openConfirm(){
        //功能:显示确认消息框
       this.$messagebox
@@ -133,11 +162,30 @@ export default {
          console.log("取消")
       })
      },
-    
-}
-  	
-
-  
+    datas(){
+            var cid=window.location.href.split("=")[1];
+            var uid=sessionStorage.getItem("uid");
+            if(!cid){cid=1};
+            if(!uid){var obj={cid}}else{var obj={uid,cid}}
+            console.log(obj)
+            var url="data1"
+            this.axios.get(url,{params:obj}).then(
+                res=>{
+                    if(res.data.code>0){
+                        this.list=res.data.data[0];
+                        console.log(this.list)
+                        this.linkman=this.list.linkman.split("")[0]
+                        this.collectimg=this.list.aixin
+                    }else{
+                        this.$toast({message:res.data.msg})
+                    }
+                }
+            )
+        }
+    },   
+    mounted(){
+        this.datas()
+    },
 }
 </script>
 <style scoped>
@@ -154,8 +202,6 @@ button>.mint-msgbox-btn>.mint-msgbox-confirm{
         width:100%;
         position:fixed;
 }
-
-
 .mint-tabbar{
     position: fixed;
 }

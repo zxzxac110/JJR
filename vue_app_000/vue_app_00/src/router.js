@@ -16,7 +16,8 @@ import deta1 from "./components/pro/deta1.vue"                          //向
 import compan from "./components/pro/compan.vue"                        //向
 import Gagege from "./components/pro/Gagege.vue"                        //l罗
 import Jbxx from "./components/pro/Jbxx.vue"                            //l罗
-import qiuzhi from "./components/pro/Qiuzhi.vue"                            //l罗
+import qiuzhi from "./components/pro/Qiuzhi.vue"                        //l罗
+import baby from "./components/pro/baby.vue"                        //l罗
 //import mmfind from "./components/pro/mmfind.vue"                      //找回密码 李 未完成
 Vue.use(Router) 
 export default new Router({
@@ -38,6 +39,7 @@ export default new Router({
     {path:'/Jbxx',component:Jbxx},
     {path:'/myheader',component:myheader},
     {path:'/qiuzhi',component:qiuzhi},
+    {path:'/baby',component:baby},
     //{path:'/mmfind',component:mmfind},
   ]
 })

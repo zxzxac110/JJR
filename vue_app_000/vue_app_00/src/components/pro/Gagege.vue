@@ -1,8 +1,8 @@
 <template>
   <div>
-    <!-- <div class="l_xian " :class="bnnn">
+    <div class="l_xian " :class="bnnn">
       <img id="l_img" style="width:100%;height:112%" src="../../assets/xianym.jpg" alt="">
-    </div> -->
+    </div> 
     <div class="JJR">
       <img src="../../assets/JJRLogo.png"  class="JJRhome" alt="">
       <P class="titlept">专业中高级家具人才招聘平台</P>
@@ -67,20 +67,24 @@
 export default {
   data() {
     return {
-      bnnn:""
+      bnnn:"d-nnn",//默认图片一开始隐藏
     }
   },
     methods:{
     }, 
     created(){
-        var i=2
+      if(sessionStorage.getItem("img")==null){ //查询页面保存的值.如果为空
+        sessionStorage.setItem("img","ok")     //赋值.进行多次运行
+        var i=3;
+        this.bnnn="";                           //显示图片
         var time=setInterval(()=>{
           i--;
           if(i==0){
-            this.bnnn="d-nnn";
+            this.bnnn="d-nnn";                  //隐藏图片
              clearInterval(time);
           }
         },1000)
+      }
     },
 }
 </script>
@@ -96,11 +100,10 @@ body,html{
 }
 .l_xian{
     position: fixed;
-    z-index: 999;
+    top:0;
+    z-index: 9999;
     width: 100%;
     height: 90%;
-    /* -webkit-transform: translateX(-50%); */
-    /* transform: translateX(-50%); */
     background-size:100% 100%;
     border-radius: 4px;
 }
