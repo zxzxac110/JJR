@@ -1,4 +1,4 @@
-<!--Agreement 用户协议 -->
+<!--Agreement 用户协议1 -->
 <template>
     <div class="agreement">
         <myheader></myheader>
@@ -54,6 +54,9 @@ export default {
     components:{
             myheader,
  },
+ created(){ 
+        sessionStorage.setItem("i",1);
+    },
 }
 </script>
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
  <div class="app-container">
     <!-- 头 -->
-    <myheader></myheader>
+    <myheader v-bind:name="$route.name"></myheader>
     <!--头-->
     <router-view></router-view>
  </div>
@@ -13,7 +13,7 @@ export default {
    name:'app',
    components:{
       myheader,
-   }
+   }, 
 }
 //引入头部
 </script>

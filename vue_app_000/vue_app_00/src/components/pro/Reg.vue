@@ -1,4 +1,4 @@
-<!--Reg 登录界面  -->
+<!--Reg 注册界面 15 -->
 <template>
     <div class="login">
         <div class="getyzm" :class="getyzmh">
@@ -128,6 +128,9 @@ export default {
                 },1000);
             }
         }
+    },
+    created(){ 
+        sessionStorage.setItem("i",15);
     },
     components:{
             myheader,

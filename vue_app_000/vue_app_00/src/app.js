@@ -171,5 +171,30 @@ app.get("/data1",(req,res)=>{
             }
          })
     }
-
+})
+//..........................首页
+app.get("/gagege",(req,res)=>{
+    var sql=`SELECT cid,title,time,details,salary,cname,pic,experience,education,linkman,phone,province,cantonal FROM career_company`
+    pool.query(sql,(err,result)=>{    //查询页面具体数据
+        if(err)throw err;
+        console.log(result)
+        if(result.length>0){
+         res.send({code:1,msg:"查询成功",data:result})
+        }else{
+         res.send({code:-1,msg:"查询失败"})
+        }
+    })
+})
+//------------------分类
+app.get("/fenlei",(req,res)=>{
+    var sql=`SELECT cid,title,time,details,salary,cname,pic,experience,education,linkman,phone,province,cantonal FROM career_company`
+    pool.query(sql,(err,result)=>{    //查询页面具体数据
+        if(err)throw err;
+        console.log(result)
+        if(result.length>0){
+         res.send({code:1,msg:"查询成功",data:result})
+        }else{
+         res.send({code:-1,msg:"查询失败"})
+        }
+    })
 })

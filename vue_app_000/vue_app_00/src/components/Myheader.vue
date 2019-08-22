@@ -1,7 +1,7 @@
 
 <template>
     <div class="myheader">
-        <mt-header :title="titles[0]" class="bg-e6">
+        <mt-header :title="unameomg||name" class="bg-e6">
             <!-- 跳转首页 -->
          <router-link to="/omg" slot="left"> 
         <mt-button icon="back">返回</mt-button>
@@ -18,17 +18,22 @@ export default {
         return {
             title:"首页",
                 // 问
-            titles:["首页","分类","个人中心","职业详情","","登录","注册","应聘记录","简历编辑","职位收藏",
-            "职位订阅","账号设置"]
+            titles:["用户协议","公司介绍","职位详情","推荐","首页","基本信息","登录界面","个人中心","我的收藏","我的订阅","应聘记录","简历编辑","用户界面","职位搜索","注册界面"],
+            i:0
         }
     },
     methods: {
         
     },
-    updated(){
-// var i=
-// this.title=titles[i]
-    }
+    props:{
+         name:{default:""},
+         unameomg:{default:""} 
+    },
+    // mounted() {
+    //       console.log("头部变化1")
+    //       this.i=sessionStorage.getItem("i")-1
+    //       console.log(this.i)
+    // },
 }
 </script>
 <style scoped>

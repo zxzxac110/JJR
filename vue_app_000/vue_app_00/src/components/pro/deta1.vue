@@ -1,22 +1,15 @@
 <template>
+<!-- 职位详情3 -->
 <div>
     <!-- 滚动指令 -->
     <div>
         <!-- 顶部 -->
-       <div></div>
-      <mt-header title="职业详情">
-      <router-link to="/omg" slot="left">
-      <mt-button icon="back">返回</mt-button>
-      </router-link>
-      <mt-button slot="right"><img src="../img/07.png" height="30" width="30" slot="icon">
-      </mt-button>
-      </mt-header> 
       <!-- 中间内容 -->
         <div class="k1">
            <div class="k2">
               <div class="k3">
                   <span>所属部门：市场营销部</span>
-                  <span>{{list.time}}</span>
+                  <span>{{aaa(list.time)}}</span>
               </div>
              <div class="k4">{{list.title}}</div>
               <div class="k5">{{list.salary}}</div>
@@ -117,6 +110,12 @@ export default {
         }
     },
     methods: {
+        aaa(time){//具体时间函数
+          var a=new Date(Number(time))     //转化为标准时间格式
+              a = a.toLocaleString();      //转化为标准时间格式
+              a=a.split(" ")[0]            //分割 获得数组 只要前面的2019/8/19
+            return a;
+        },
         shoucang:function(cid){         //收藏函数
             var url="data1";
             var time=new Date().getTime()
@@ -186,6 +185,9 @@ export default {
     mounted(){
         this.datas()
     },
+    created(){ 
+        sessionStorage.setItem("i",3);
+    },  
 }
 </script>
 <style scoped>

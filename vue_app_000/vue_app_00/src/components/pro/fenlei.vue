@@ -1,5 +1,6 @@
 <!-- 分类 -->
 <template>
+<!-- 职位搜索4 -->
   <div class="content">
     <!-- 顶部搜索框 -->
     <!-- 陶铸 -->
@@ -71,80 +72,24 @@
      </div>
   </div>
   <!-- 中间内容 -->
-        <div class="k1">
+         <div class="k1" v-for="(item,index) in list" :key="index" @click="ttzhuan(item.cid)">
           <div class="k2">
               <div class="k3">
                   <span>所属部门：市场营销部</span>
-                  <span>7小时前</span>
+                  <span>{{aaa(item.time)}}</span>
               </div>
-              <div class="k4">淘宝（天猫）客服</div>
-              <div class="k5">4k-6k</div>
+              <div class="k4">{{item.title}}</div>
+              <div class="k5">{{item.salarry}}</div>
               <div class="k6">
-                  <span>高中</span>
-                  <span>3年</span>
-                  <span>佛山市</span>
+                  <span>{{item.education}}</span>
+                  <span>{{item.experience}}</span>
+                  <span>{{item.cantonal}}</span>
                   <span>22-35岁</span>
               </div>
               <a href="javascript:;" class="k7">
-                  <img src="../../assets/001.png">
+                  <img :src="'http://127.0.0.1:3000/'+item.pic">
                   <div class="k8">
-                      <div class="k9">佛山市顺德区今日美家家具有限公司</div>
-                      <div class="k10">
-                          <span>实木家具,板式家具,软体家具</span>
-                          <span class="k11">200-500人</span>
-                      </div>
-                  </div>
-                  <span class="k12"></span>
-              </a>
-          </div>
-          <div></div>
-      </div>
-        <div class="k1">
-          <div class="k2">
-              <div class="k3">
-                  <span>所属部门：市场营销部</span>
-                  <span>7小时前</span>
-              </div>
-              <div class="k4">淘宝（天猫）客服</div>
-              <div class="k5">4k-6k</div>
-              <div class="k6">
-                  <span>高中</span>
-                  <span>3年</span>
-                  <span>佛山市</span>
-                  <span>22-35岁</span>
-              </div>
-              <a href="javascript:;" class="k7">
-                  <img src="../../assets/001.png">
-                  <div class="k8">
-                      <div class="k9">佛山市顺德区今日美家家具有限公司</div>
-                      <div class="k10">
-                          <span>实木家具,板式家具,软体家具</span>
-                          <span class="k11">200-500人</span>
-                      </div>
-                  </div>
-                  <span class="k12"></span>
-              </a>
-          </div>
-          <div></div>
-      </div>
-         <div class="k1">
-          <div class="k2">
-              <div class="k3">
-                  <span>所属部门：市场营销部</span>
-                  <span>7小时前</span>
-              </div>
-              <div class="k4">淘宝（天猫）客服</div>
-              <div class="k5">4k-6k</div>
-              <div class="k6">
-                  <span>高中</span>
-                  <span>3年</span>
-                  <span>佛山市</span>
-                  <span>22-35岁</span>
-              </div>
-              <a href="javascript:;" class="k7">
-                  <img src="../../assets/001.png">
-                  <div class="k8">
-                      <div class="k9">佛山市顺德区今日美家家具有限公司</div>
+                      <div class="k9">{{item.cname}}</div>
                       <div class="k10">
                           <span>实木家具,板式家具,软体家具</span>
                           <span class="k11">200-500人</span>
@@ -155,6 +100,7 @@
           </div>
           <div></div> 
       </div> 
+      <div id="fenlei-last"></div>
   </div>
 </template>
 <script>
@@ -162,36 +108,60 @@ export default {
   data(){
     return{
     active:"qb1",
-    play:false
+    play:false,
+    list:[]
     }
   },
-   mounted:function(){
-  	
+  created(){ 
+        sessionStorage.setItem("i",4);
     },
   methods: {
+    ttzhuan(cid){
+this.$router.push("/deta1?id="+cid)
+    },
+    aaa(time){//具体时间函数
+          var a=new Date(Number(time))     //转化为标准时间格式
+              a = a.toLocaleString();      //转化为标准时间格式
+              a=a.split(" ")[0]            //分割 获得数组 只要前面的2019/8/19
+            return a;
+      },
      handleClose: function(){
   		console.log("返回")
     },
     tab(e){
-      
-
-if(e.target.dataset.id){
-//  console.log(e.target.dataset.id)
-if(this.active==e.target.dataset.id){
-  this.play=!this.play
-  }else{this.play=true}
-
-var divlists=document.querySelectorAll(".PRecord-list>div")
-var divlist=e.target;
-this.active=divlist.dataset.id;
-for(var elem of divlists){ //清除所有css
-elem.className=""
-}
-divlist.className="list-active";//此时添加css
- }
-}
+    if(e.target.dataset.id){
+    //  console.log(e.target.dataset.id)
+      if(this.active==e.target.dataset.id){
+        this.play=!this.play
+        }else{
+        this.play=true
+        }
+    var divlists=document.querySelectorAll(".PRecord-list>div")
+    var divlist=e.target;
+    this.active=divlist.dataset.id;
+    for(var elem of divlists){ //清除所有css
+    elem.className=""
+      }
+    divlist.className="list-active";//此时添加css
+      }
+  },
+  datas(){
+    var url="fenlei"
+    this.axios.get(url).then(
+     res=>{
+      if(res.data.code>0){
+       this.list=res.data.data;
+        //console.log(this.list)
+          }else{
+           this.$toast({message:res.data.msg})
+          }
+        })
+      }
 },
-  }
+mounted() {
+  this.datas()
+},
+}
 
 </script>
 <style scoped>
@@ -263,7 +233,7 @@ divlist.className="list-active";//此时添加css
     margin-right: 1%;
     align-items: center;
     justify-content: center;
-    border-top:2px solid red; 
+   /*border-top:2px solid red;*/
   }
   #fugai{
     height: 100%;
@@ -407,5 +377,8 @@ divlist.className="list-active";//此时添加css
     font-size: 14px;
     text-align: center;
     margin: auto auto 8px;
+}
+.fenlei-last{
+  margin-bottom: 58px;
 }
 </style>

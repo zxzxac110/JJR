@@ -1,7 +1,7 @@
 <template>
 <div>
   <div>
-    <myheader></myheader>
+    <myheader :unameomg="unameomg"></myheader>
     <mt-tab-container v-model="active">
       <!-- 首页 -->
         <mt-tab-container-item id="m1">
@@ -60,11 +60,12 @@ import gagege from "./pro/Gagege.vue"           //首页
 export default {
     data(){
         return{
+            unameomg:"首页",
             active:"m1",
             currentIndex:[
-            {isSelect:true},
-            {isSelect:false},
-            {isSelect:false}],
+            {isSelect:true,unameomg:"首页"},
+            {isSelect:false,unameomg:"热门"},
+            {isSelect:false,unameomg:"个人中心"}],
             islogin:"no",     //判断登录状态.显示要显示的面板
             logindata:"",      //登录后跳转变量函数
             personald:[]       //发送给个人界面的函数
@@ -77,14 +78,29 @@ export default {
       //1:创建循环,循环数组中内容
       for(var i=0;i<this.currentIndex.length;i++){
        //2:判断如果循环下标与n相等 20
-       if(n==i){
-        //3:当前下标元素true 10:22
-        this.currentIndex[i].isSelect=true;
-       }else{
+        if(n==i){                                         //循环下标2选1
+          //3:当前下标元素true 10:22
+          this.currentIndex[i].isSelect=true;
+          if(i==2){                
+            this.showlogin()
+            }
+          this.unameomg=this.currentIndex[i].unameomg; 
+        }else{                                            //循环下标2选1
         //4:其它元素修改false
         this.currentIndex[i].isSelect=false;
        }
       }
+    },
+    showlogin(){
+      if(sessionStorage.getItem("uid")>0){//登录执行界面函数
+        this.islogin="yes";
+        if(this.active=="m3")
+        {this.unameomg=this.currentIndex[2].unameomg="个人中心"}  
+    }else{
+        this.islogin="no"
+        if(this.active=="m3")
+        {this.unameomg=this.currentIndex[2].unameomg="登录界面"}
+    }
     },
     getUrl(data){
       this.logindata=data.logindata
@@ -110,9 +126,6 @@ export default {
             })
           }
       }
-
-
-
     }
   },
   mounted(){                                        
@@ -133,11 +146,7 @@ export default {
       }
   },
   updated(){
-     if(sessionStorage.getItem("uid")>0){//登录执行界面函数
-        this.islogin="yes";
-    }else{
-        this.islogin="no"
-    }
+    this.showlogin()
   },
   components:{
             "tabbaricon":TabBarIcon,

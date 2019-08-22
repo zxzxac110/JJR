@@ -1,4 +1,5 @@
 <template>
+<!-- 基本信息6 -->
   <div class="l_cube">
     <div style="position:relative;z-index:0">
       <main>
@@ -81,7 +82,10 @@
 export default {
   data(){
     return{}
-  }  
+  },
+  created(){ 
+        sessionStorage.setItem("i",6);
+    },
 }
 </script>
 <style scoped>   

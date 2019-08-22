@@ -1,5 +1,6 @@
 <!-- personal 个人中心 -->
 <template>
+<!-- 个人中心8 -->
     <div class="personal">
         <div class="personal-to1" @click="jbxx">
             <div class="portrait">
@@ -116,9 +117,6 @@ export default {
           }
        },*/
     },  
- /*   mounted(){
-        this.chang()
-    },*/
     props:{                 //申明接受父组件数据
         msg:{default:""}    //得到的头部发送过来的AJAX数据
     }

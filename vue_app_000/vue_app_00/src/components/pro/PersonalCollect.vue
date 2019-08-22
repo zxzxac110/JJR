@@ -1,4 +1,5 @@
 <template>
+<!-- 我的收藏9 -->
     <div class="PCollect">
          <div class="list" v-for="(item,index) in resuls" :key="index" >
              <div class="details" @click="tzz(item.cid)">
@@ -61,6 +62,8 @@ export default {
     created() {
         this.databa()
     },
+       
+
 }
 </script>
 <style scoped>

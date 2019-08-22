@@ -1,4 +1,5 @@
 <template>
+<!-- 职位搜索14 -->
   <div>
     <div class="l_cub">
       <header></header>
@@ -56,7 +57,7 @@ export default {
     return{
       val1:true
     }
-  }
+  },
 }
 </script>
 <style scoped>

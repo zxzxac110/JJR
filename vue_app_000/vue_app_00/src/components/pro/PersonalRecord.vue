@@ -1,4 +1,4 @@
-<!-- 应聘记录 -->
+<!-- 应聘记录11 -->
 <template>
     <div class="PRecord">
         <div  class="PRecord-list">
@@ -48,7 +48,7 @@ export default {
             this.active=this.li[index]
         },
           },
-   mounted(){                                       
+   mounted(){                                      
        var lid=window.location.href.split("=")[1]  //获取地址信息
        if(lid>0){
           this.active=lid

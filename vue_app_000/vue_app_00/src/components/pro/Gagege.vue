@@ -1,5 +1,6 @@
 <template>
-  <div>
+<!-- 首页5 -->
+  <div id="gagege">
     <div class="l_xian " :class="bnnn">
       <img id="l_img" style="width:100%;height:112%" src="../../assets/xianym.jpg" alt="">
     </div> 
@@ -36,24 +37,24 @@
       <h3 class="l_remen">热门职业
       <a href="" class="l_mone">更多</a>
       </h3>
-      <div>
+      <div v-for="(item,index) in list" :key="index" @click="ttzhuan(item.cid)" >
         <div class="l_da">
           <div class="l_wrap">
             <div class="l_desc">
-              <a href="" style="text-decoration:none;">
+              <a href="javascript:;" style="text-decoration:none;">
                 <h4 class="l_pai">
-                  <span class="l_link">深化设计</span>
-                  <span class="l_money">&nbsp;&nbsp;7K-15K</span>
-                  <span class="l_refreshTime">10小时前</span>
+                  <span class="l_link">{{item.title}}</span>
+                  <span class="l_money">&nbsp;&nbsp;{{item.salary}}</span>
+                  <span class="l_refreshTime">{{aaa(item.time)}}</span>
                 </h4>
                 <h4 class="l_Info">
-                  <span>东莞市</span>
+                  <span>{{item.cantonal}}</span>
                   <span>&nbsp;|&nbsp;25-45岁</span>
-                  <span>&nbsp;|&nbsp;高中</span>
+                  <span>&nbsp;|&nbsp;{{item.education}}</span>
                 </h4>
                 <div class="l_company">
-                  <p class="l_uname">东莞市优扬家具有限公司</p>
-                  <img class="l_lImg" src="../../assets/ChmvSFnwVkiAeA0BAADYjbQ20sc298.png" alt="">
+                  <p class="l_uname">{{item.cname}}</p>
+                  <img class="l_lImg" :src="'http://127.0.0.1:3000/'+item.pic" alt="">
                   <div style="clear:both"></div>
                 </div>
               </a>
@@ -61,6 +62,7 @@
           </div>
         </div>
       </div> 
+      <div id="gagege-last"></div>
   </div>
 </template>
 <script>
@@ -68,11 +70,36 @@ export default {
   data() {
     return {
       bnnn:"d-nnn",//默认图片一开始隐藏
+      list:[]
     }
   },
     methods:{
+      aaa(time){//具体时间函数
+          var a=new Date(Number(time))     //转化为标准时间格式
+              a = a.toLocaleString();      //转化为标准时间格式
+              a=a.split(" ")[0]            //分割 获得数组 只要前面的2019/8/19
+            return a;
+        },
+      ttzhuan(cid){//跳转函数
+      console.log(cid)
+      this.$router.push("/deta1?id="+cid)
+      },
+      datas(){
+            var url="gagege"
+            this.axios.get(url).then(
+                res=>{
+                    if(res.data.code>0){
+                        this.list=res.data.data;
+                        console.log(this.list)
+                    }else{
+                        this.$toast({message:res.data.msg})
+                    }
+                }
+            )
+        }
     }, 
     created(){
+        sessionStorage.setItem("i",5);
       if(sessionStorage.getItem("img")==null){ //查询页面保存的值.如果为空
         sessionStorage.setItem("img","ok")     //赋值.进行多次运行
         var i=3;
@@ -85,6 +112,9 @@ export default {
           }
         },1000)
       }
+    },
+    mounted(){
+      this.datas()
     },
 }
 </script>
@@ -293,5 +323,8 @@ height: 20px;
   border-radius: 2px;
   border: 1px solid #ebe9e8;
   float: right;
+}
+#gagege-last{
+    margin-bottom:58px;
 }
 </style>

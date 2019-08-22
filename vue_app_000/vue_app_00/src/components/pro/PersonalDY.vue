@@ -1,4 +1,5 @@
 <template>
+<!-- 我的订阅10 -->
     <div class="PersonalDY">
         <div class="details">
             <div>
@@ -87,7 +88,9 @@
 </template>
 <script>
 export default {
-    
+    created(){ 
+        sessionStorage.setItem("i",10);
+    },
 }
 </script>
 <style scoped>
