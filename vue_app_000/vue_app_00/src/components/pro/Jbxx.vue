@@ -31,12 +31,12 @@
         </div>
         <div class="l_ipt">
           <span class="l_text">出生日期</span>
-          <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <input @click="selectData('cs')" type="text" class="l_right" readonly="readonly" :placeholder="csawe+csselectedValue">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">参加工作时间</span>
-          <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <input @click="selectData('gz')" type="text" class="l_right" readonly="readonly" :placeholder="awe+selectedValue">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
@@ -76,16 +76,60 @@
         </div>
       </div>
     </div>
+    <div class="pickerPop" @touchmove.prevent>
+      <mt-datetime-picker
+        lockScroll="true"
+        ref="datePicker"
+        v-model="dateVal"
+        type="date"
+        year-format="{value}"
+        month-format="{value}"
+        date-format="{value}"
+        @confirm="dateConfirm()"
+        :startDate = "startDate"
+      		:endDate = "endDate">
+      </mt-datetime-picker>
+		
+    </div>
   </div>
 </template>
 <script>
+import {formatDateMin} from '@/assets/formatdate.js' //时间转换函数
 export default {
-  data(){
-    return{}
-  },
-  created(){ 
-        sessionStorage.setItem("i",6);
+  data () {
+        return {
+			      awe:"请选择",		         //工作开始现实内容
+            dateVal: new Date(),    
+            selectedValue: '',      
+            csawe:"请选择",		       //出生开始现实内容
+            csdateVal: new Date(),  
+            csselectedValue: '' ,   
+            csgz:'',                 //判断当前点击内容
+            startDate: new Date('1950-01-01'),//设置开始时间
+            endDate: new Date()
+        }
     },
+    methods: {
+        selectData (typ) { 
+      if(typ=="cs"){
+        this.csgz="cs"
+        }else{
+          this.csgz="gz"
+          }     
+      this.$refs['datePicker'].open()
+        },
+    dateConfirm () { // 时间选择器确定按钮，并把时间转换成我们需要的时间格式
+    if(this.csgz=="gz"){
+			this.selectedValue = formatDateMin(this.dateVal);  //调用时间转换函数
+			this.awe="";
+      this.dateVal = this.selectedValue
+      }else{
+      this.csselectedValue = formatDateMin(this.dateVal);  //调用时间转换函数
+			this.csawe="";
+      this.csdateVal = this.selectedValue
+      }  
+    }
+  },
 }
 </script>
 <style scoped>   
