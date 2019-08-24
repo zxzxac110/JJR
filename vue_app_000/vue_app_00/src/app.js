@@ -198,3 +198,33 @@ app.get("/fenlei",(req,res)=>{
         }
     })
 })
+//------------基本信息
+app.post("/jbxx",(req,res)=>{
+    var {uid,avatar,birthdata,workdata}=req.body
+    console.log(avatar)
+    console.log(birthdata)
+    console.log(workdata)
+    if(avatar){
+    var sql=`UPDATE career_user SET avatar=? , birthdata=? , workdata=?WHERE uid=${uid}`
+    pool.query(sql,[avatar,birthdata,workdata],(err,result)=>{    //查询页面具体数据
+        if(err)throw err;
+        console.log(result)
+        if(result.affectedRows>0){
+         res.send({code:1,msg:"保存成功"})
+        }else{
+         res.send({code:-1,msg:"保存成功"})
+        }
+    })
+    }else{
+    var sql=`SELECT avatar,birthdata,workdata FROM career_user WHERE uid=?`
+    pool.query(sql,[uid],(err,result)=>{    //查询页面具体数据
+        if(err)throw err;
+        //console.log(result)
+        if(result.length>0){
+         res.send({code:1,msg:"查询成功",data:result})
+        }else{
+         res.send({code:-1,msg:"查询失败"})
+        }
+    })
+    }
+})

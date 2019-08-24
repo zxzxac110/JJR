@@ -16,7 +16,10 @@ CREATE TABLE career_user(uid INT PRIMARY KEY AUTO_INCREMENT,
 			 reachtion VARCHAR(150),	#到岗时间
 			 marital VARCHAR(150),		#婚姻状态  1已婚/0未婚
 			 province VARCHAR(150),		#籍贯-省
-			 city	 VARCHAR(150)		#籍贯-市
+			 city	 VARCHAR(150),		#籍贯-市
+			 avatar  VARCHAR(10000),	#头像
+			 birthdata VARCHAR(50),         #出生日期
+			 workdata VARCHAR(50)		#工作日期
 );
 #3公司信息
 CREATE TABLE career_company(cid INT PRIMARY KEY AUTO_INCREMENT,
@@ -48,7 +51,7 @@ CREATE TABLE career_collect(coid INT PRIMARY KEY AUTO_INCREMENT,
 			    cantonal VARCHAR(50)     #市区
 );
 #1用户基本信息
-INSERT INTO `career_user`( `uid`, `uname`, `password`, `nickname`, `phone`,`sex`, `age`, `email`, `education`, `station`, `reachtion`, `marital`, `province`, `city`) VALUES (1, 'a111111', 'a111111', 'a111111', '13112345678',1, 18,  '12345678@qq.com', '博士', '前端工程师', '随时', '0', '湖南', '长沙');
+INSERT INTO `career_user`( `uid`, `uname`, `password`, `nickname`, `phone`,`sex`, `age`, `email`, `education`, `station`, `reachtion`,`marital`, `province`, `city`,`avatar`,`birthdata`,`workdata`) VALUES (1, 'a111111', 'a111111', 'a111111', '13112345678',1, 18,  '12345678@qq.com', '博士', '前端工程师', '随时', '0', '湖南', '长沙','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEeklEQVRoQ9Vay3XbOBR9jxa5HaWCuIOxKxi5AisVRKkg8kLA8WqclQ+pheUKRu5AqSByBaPpIFPBeLa2yZdzZUCHoikRH+V4BksbAO/Fw7vvAzEdYNzc3PSfn59/I6ITEXknIn1mfhCRB2zPzH37N2b+h4hWvV7v/uLiYv3/mMGhiwH68fHxnJlPATRJkuVkMlm67DedTgdVVQ0MsT+zLPsaSsabgDntzzhpIporpVYuoHfNKYrihIhGsEyv17v1JeJFIM/zj0R0VlXV1eXl5fcY4M2119fXx0mSXBHRN631neveTgRw6k9PT1fMvHC9Jq4AmvPM9RplWTZ2sUYnAWviNE2vXDYMBV5fZ/xrxsyzriu6l4AFr5QaHwKY7x5FUcy6/GwngbcGb8l2kWglAIc6Ojoav9XJNy0FEmVZztqEo5VAnudzVyfyvRYh861PaK1HzfWvCOR5vlabLucJARKzBldaRAZaa/jFZmwRMJOGWmvo8X9utB3uFgFcnTYz+TKZTqfnIjIkomO7VkSwt3OA2vXNJsYNAQQQETlWSs19AdcUAynGmJk3wBt7Ie34FHM9i6JA2vHdBtQNAXh6jOoURfEHchpH8kul1Jnj3FfT6ljXBGyqEErAWO+bJ6DTUEuAgM0M1gTyPB9XVbUITdBwL5kZiZ7PwFUKuq4mTg2wfk3gANcHdQAKGuchIl9i1M5i/v8TMHk4tH8rQDgf5YsFQyzwQWu98PlOfS5iQpZlM4YD4h8xeX5RFABy7gOGmc9ivmlxc1NXfUDYuSZC/u6z9hAEqqrqszVFTLESokKxTmyu/mhNIEYNjIqJz+mbuSul1GnAus2SteUPZIEVM//qA0ZE/tVa933W1OfWLTBMkuQhxqFCVIiI7pVSawEJGRsnPoQKhTgxEd2Gpi4gvCFgqp1xjB+YXApS6hqN79M0HUYKx0scOEQqgT0MCfQ9O0eapu9iwNcx22QuWol81Egp1dmP6joFq57WAqOyLJeh2aj9WFEUnXIqIn9prdEPDR6vstHYesAnIsdGYHyrLv0bUx4ooKEiQ2W2b6DfdBt8/IaAFZ16SQmznoQWGT5OHGMF5G54ILHVXLOtElwXmxbgZ8eTDa6Jmzdli4ANzz4xodZCcS3oLUfUEIs0Te9cJbWt9G3rzKEtghPa+fJin5eICF28XS0UR2MQ3tLmVVXd7lPBuvLUN27V43rVX59ce15Cuz04EdvDbF6W5Zc2Irvq9lYCzfTCtNpxv9Ft+xnAtziJyCJJkvlkMvnalM0m+c73ARF5z8wA/hZjKSL3+5rNnS80IrJk5l/eAj1qBmZG/2enP3bmJEaZFr4FSyxhpBxVVQ270ptOAgBifAKW8Kq6QkkAfJZlAxd5dSJQI4GXQ98WohcPEbnzeR1yJlBL2IZ4/iSi917Iuif/jda8b7PLm0DNGogFCHpRDg5HJaIZqiuXK+Mso90H9jLDJFeQWa/OHBFB4/EWF9ShtviCLLCLnPmZALJa/Nxmq+MAOSYi/KplFdMBaX77B0kz0ahNkspqAAAAAElFTkSuQmCC','','');
 #3公司信息
 INSERT INTO `career_company`(`cid`, `title`, `time`, `details`, `salary`, `cname`, `pic`, `experience`, `education`, `linkman`, `phone`, `province`, `cantonal`) VALUES (1, '促销/导购员', '1565960766904', '接待顾客的咨询，了顾客的需求并达成销售。做好成交客户的客情关系，建立良好的长期合作关系。', '5k-10k', '广东佛山顺德宝马家具有限公司', 'baoma.jpg', '一年以下', '初中', '罗先生', '13523465658', '广东', '佛山');
 INSERT INTO `career_company`(`cid`, `title`, `time`, `details`, `salary`, `cname`, `pic`, `experience`, `education`, `linkman`, `phone`, `province`, `cantonal`) VALUES (2, '家具/家居用品设计', '1565960123456', '熟悉家具设计工艺及软件，对工作负责。\r\n熟悉设计量尺，具有一定沟通能力。\r\n具有两年以上定制家具设计经验。', '2k-5k', '广西桂林城威家具有限公司', 'chengwei.jpg', '1-3年', '高中', '李先生', '13552663258', '广西', '桂林');

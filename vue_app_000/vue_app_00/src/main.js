@@ -14,7 +14,6 @@ axios.defaults.withCredentials=true
 Vue.prototype.axios=axios;
 import qs from 'qs';
 Vue.prototype.qs = qs;
-
 import { DatetimePicker } from 'mint-ui';
 Vue.component(DatetimePicker.name, DatetimePicker);
 

@@ -3,15 +3,15 @@
   <div class="l_cube">
     <div style="position:relative;z-index:0">
       <main>
-        <div class="l_Info">
+        <div class="l_Info" @click.stop="uploadHeadImg">
           <div class="l_avatr">
-            <img src="../../assets/touxiang.png" alt="">
+            <img :src="ajaxdata.avatar" alt="">
           </div>
           <div class="l_main">
             头像编辑
-          </div>
-          <input type="file" accept="image/png,image/jpeg,image/gif,image/jpg" class="l_uplo">
-          <i class="iconfont l_dayu">&#xe65f;</i>
+          </div> 
+          <input type="file" accept="image/png,image/jpeg,image/gif,image/jpg" class="l_uplo fileImg"  @change="handleFile">
+           <i class="iconfont l_dayu">&#xe65f;</i> 
         </div>
         <div class="l_ipt">
           <span class="l_text">姓名</span>
@@ -29,14 +29,14 @@
           <span class="l_text">身高</span>
           <input type="text" class="l_right" placeholder="未填写">
         </div>
-        <div class="l_ipt">
+        <div class="l_ipt" @click="selectData('cs')">
           <span class="l_text">出生日期</span>
-          <input @click="selectData('cs')" type="text" class="l_right" readonly="readonly" :placeholder="csawe+csselectedValue">
+          <input  type="text" class="l_right" readonly="readonly" :value="ajaxdata.birthdata">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
-        <div class="l_ipt">
+        <div class="l_ipt" @click="selectData('gz')">
           <span class="l_text">参加工作时间</span>
-          <input @click="selectData('gz')" type="text" class="l_right" readonly="readonly" :placeholder="awe+selectedValue">
+          <input  type="text" class="l_right" readonly="readonly" :value="ajaxdata.workdata">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
@@ -71,7 +71,7 @@
         </div>
       </main>
       <div style="text-align: center;">
-        <div class="l_primary">
+        <div class="l_primary" @click="savexx">
           保存
         </div>
       </div>
@@ -87,9 +87,8 @@
         date-format="{value}"
         @confirm="dateConfirm()"
         :startDate = "startDate"
-      		:endDate = "endDate">
+      	:endDate = "endDate">
       </mt-datetime-picker>
-		
     </div>
   </div>
 </template>
@@ -98,41 +97,81 @@ import {formatDateMin} from '@/assets/formatdate.js' //时间转换函数
 export default {
   data () {
         return {
-			      awe:"请选择",		         //工作开始现实内容
-            dateVal: new Date(),    
-            selectedValue: '',      
-            csawe:"请选择",		       //出生开始现实内容
-            csdateVal: new Date(),  
-            csselectedValue: '' ,   
-            csgz:'',                 //判断当前点击内容
+            ajaxdata:[],            //接收的ajax数据
+            //aaa:"",   
+            dateVal: new Date(),              //选择的时间.默认声明这是一个时间类型.双向绑定.
+            csgz:'',                          //判断当前点击日期内容 工作/出生
             startDate: new Date('1950-01-01'),//设置开始时间
-            endDate: new Date()
+            endDate: new Date(),              //结束时间
         }
     },
     methods: {
-        selectData (typ) { 
-      if(typ=="cs"){
+//打开图片上传
+    uploadHeadImg: function () {
+      this.$el.querySelector('.fileImg').click()
+    },
+// 将头像显示
+    handleFile: function (e) {
+      var $target = e.target || e.srcElement
+      var file = $target.files[0]
+      if(!file){return;}
+      var reader = new FileReader()
+      reader.onload = (data) => {
+      var res = data.target || data.srcElement
+       this.ajaxdata.avatar = res.result
+      }
+      reader.readAsDataURL(file)   //编码 
+    },
+//日期
+      selectData (typ) { 
+      if(typ=="cs"){//确定当前点击内容工作/？出生
         this.csgz="cs"
         }else{
-          this.csgz="gz"
-          }     
+        this.csgz="gz"
+        }     
       this.$refs['datePicker'].open()
-        },
+      },
+//日期
     dateConfirm () { // 时间选择器确定按钮，并把时间转换成我们需要的时间格式
-    if(this.csgz=="gz"){
-			this.selectedValue = formatDateMin(this.dateVal);  //调用时间转换函数
-			this.awe="";
-      this.dateVal = this.selectedValue
+    if(this.csgz=="gz"){ 
+			this.ajaxdata.workdata = formatDateMin(this.dateVal);  //调用时间转换函数
       }else{
-      this.csselectedValue = formatDateMin(this.dateVal);  //调用时间转换函数
-			this.csawe="";
-      this.csdateVal = this.selectedValue
-      }  
-    }
+      this.ajaxdata.birthdata = formatDateMin(this.dateVal);  //调用时间转换函数
+      } 
+      console.log(this.ajaxdata) 
+    },
+//开局发送ajax得到信息函数
+    ajaxdataF(){
+      var uid=sessionStorage.getItem("uid")
+      if(!uid){return;} //如果没有uid 打断
+      var obj={uid};
+      var url="jbxx"
+      this.axios.post(url,this.qs.stringify(obj)).then(
+          res=>{
+          if(res.data.code>0){
+                  this.ajaxdata=res.data.data[0]
+            }else{
+            this.$toast({message:res.data.msg})
+        }
+      })
+    },
+    savexx(){
+     var url="jbxx"
+     var obj=this.ajaxdata
+     obj.uid=sessionStorage.getItem("uid")
+     console.log(obj)
+     this.axios.post(url,this.qs.stringify(obj)).then(
+      res=>{
+          this.$toast({message:res.data.msg})   
+    })
+  }
+  },
+  mounted() {
+    this.ajaxdataF()
   },
 }
 </script>
-<style scoped>   
+<style scoped> 
 p{
   display: block;
   margin-block-start: 1em;
@@ -191,6 +230,7 @@ div{
   width: 100%;
   height: 100%;
   position: absolute;
+  border-right: 50%;
   left: 0;
   top: 0;
   opacity: 0;
@@ -238,6 +278,7 @@ div{
   background: #fff;
   font-size: 13px;
   vertical-align: baseline;
+  margin-bottom:40px; 
 }
 .l_textare textarea{
   width: 100%;

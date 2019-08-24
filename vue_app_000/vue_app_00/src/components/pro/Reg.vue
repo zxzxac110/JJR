@@ -9,7 +9,6 @@
         <myheader></myheader>
         <div class="yminput"> 
             <div class="ymimgdiv iconfont icon-yonghu">
-                <!-- <img src="../../assets/yh.png" alt="">  -->
             </div>
             <mt-field class="ym-field bm" placeholder="请输入用户名" v-model="uname" ></mt-field>
         </div>
@@ -35,7 +34,6 @@
     </div>
 </template>
 <script>
-
 import myheader from "../Myheader.vue"
 export default {
     data(){
@@ -128,9 +126,6 @@ export default {
                 },1000);
             }
         }
-    },
-    created(){ 
-        sessionStorage.setItem("i",15);
     },
     components:{
             myheader,
