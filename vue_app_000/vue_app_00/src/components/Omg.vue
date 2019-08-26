@@ -1,7 +1,7 @@
 <template>
 <div>
   <div>
-    <myheader :unameomg="unameomg"></myheader>
+    <myheader :unameomg="unameomg" @HchangeUrl="HgetUrl"></myheader>
     <mt-tab-container v-model="active">
       <!-- 首页 -->
         <mt-tab-container-item id="m1">
@@ -38,7 +38,7 @@
           :normalImage="require('./img/03.png')"
           :focused="currentIndex[1].isSelect">
          </tabbaricon>
-            分类</mt-tab-item>
+            热门</mt-tab-item>
         <mt-tab-item id="m3" @click.native="changeState(2)" >
              <tabbaricon
           :selectedImage="require('./img/06.png')"
@@ -72,26 +72,23 @@ export default {
             }       
         },
     methods: {
-       changeState(n){
-      //函数功能:将当前参数下标
-      //对应数组值修改true其它修改false
-      //1:创建循环,循环数组中内容
-      for(var i=0;i<this.currentIndex.length;i++){
-       //2:判断如果循环下标与n相等 20
+       changeState(n){                                    //点击底部导航栏时
+      for(var i=0;i<this.currentIndex.length;i++){        //创建循环,循环数组中内容
         if(n==i){                                         //循环下标2选1
-          //3:当前下标元素true 10:22
-          this.currentIndex[i].isSelect=true;
-          if(i==2){                
+         this.currentIndex[i].isSelect=true;             //3:当前下标元素true
+         var url=window.location.href.split("?")[0]+'?id=m'+(i+1)
+         window.location.replace(url)                     //改变当前地址栏信息.为后续的返回做准备
+          if(i==2){                                       //等于2时.判断还否登录
             this.showlogin()
             }
-          this.unameomg=this.currentIndex[i].unameomg; 
+          this.unameomg=this.currentIndex[i].unameomg;    //传给子组件的头部信息
         }else{                                            //循环下标2选1
         //4:其它元素修改false
         this.currentIndex[i].isSelect=false;
        }
       }
     },
-    showlogin(){
+    showlogin(){            //判断当前是是否登录
       if(sessionStorage.getItem("uid")>0){//登录执行界面函数
         this.islogin="yes";
         if(this.active=="m3")
@@ -103,14 +100,29 @@ export default {
     }
     },
     getUrl(data){
-      this.logindata=data.logindata
+      this.logindata=data.logindata             //登录成功.改变
+      this.islogin="yes";                       //打开开关.显示个人中心
     },
+    HgetUrl(data){                              //头部传过来的数据
+      this.tturl()                              //这时候地址栏改变了。调用地址函数
+    },
+//获取地址栏信息
+    tturl(){                                        
+      var lid=window.location.href.split("=")[1]   //页面跳转得到参数
+       if(lid){                                    //有无参数的切换面板操作
+         this.active=lid
+         var n=lid.substr(-1)-1                    //下标
+         }else{
+           this.active="m1"
+           }
+      this.changeState(n)                         //底部.头部样式变化函数
+    }
   },
   watch: {
-    logindata(){
-      this.islogin="yes";
-    },
-    islogin(){                                //如果面板变化 就发送数据到子面板
+    // logindata(){                              //只有登录了.这个数值才会变化.
+    //   this.islogin="yes";
+    // },
+  islogin(){                                    //如果登录状态有变化 就发送数据到子面板
       if(this.islogin=="yes"){
         var uid=sessionStorage.getItem("uid");
         if(uid){
@@ -126,27 +138,13 @@ export default {
             })
           }
       }
-    }
+    },
   },
-  mounted(){                                        
-       var lid=window.location.href.split("=")[1]   //页面跳转得到参数
-       if(lid){                                     //有无参数的面板操作
-         this.active=lid
-         var n=lid.substr(-1)-1                       //下标
-         }else{
-           this.active="m1"
-           }
-       for(var i=0;i<this.currentIndex.length;i++){ //循环赋值底部导航样式
-       if(n==i){
-        this.currentIndex[i].isSelect=true;
-       }else{
-        this.currentIndex[i].isSelect=false;
-       }  
-       if(!n){this.currentIndex[0].isSelect=true;} //如果没带参数默认第一个带有样式 
-      }
+  mounted(){    
+    this.tturl()      //获取地址栏信息函数                              
   },
   updated(){
-    this.showlogin()
+    this.showlogin()  //当页面有变化是.就判断一次是否登录
   },
   components:{
             "tabbaricon":TabBarIcon,

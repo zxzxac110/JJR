@@ -34,8 +34,8 @@ app.post("/reg",(req,res)=>{
    pool.query(sql,[uname],function(err,result){
     if(err) throw err;
     if(result.length>0){res.send({code:-1,msg:"已存在的用户名"});return;}
-   var sql='INSERT INTO `career_user`( `uid`, `uname`, `password`, `nickname`, `phone`) VALUES (null,?,?,?,?)'
-   pool.query(sql,[uname,upwd,uname,uphone],function(err,result){
+   var sql='INSERT INTO `career_user`( `uid`, `uname`, `password`, `nickname`, `phone`,`avatar`) VALUES (null,?,?,?,?,?)'
+   pool.query(sql,[uname,upwd,uname,uphone,'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEeklEQVRoQ9Vay3XbOBR9jxa5HaWCuIOxKxi5AisVRKkg8kLA8WqclQ+pheUKRu5AqSByBaPpIFPBeLa2yZdzZUCHoikRH+V4BksbAO/Fw7vvAzEdYNzc3PSfn59/I6ITEXknIn1mfhCRB2zPzH37N2b+h4hWvV7v/uLiYv3/mMGhiwH68fHxnJlPATRJkuVkMlm67DedTgdVVQ0MsT+zLPsaSsabgDntzzhpIporpVYuoHfNKYrihIhGsEyv17v1JeJFIM/zj0R0VlXV1eXl5fcY4M2119fXx0mSXBHRN631neveTgRw6k9PT1fMvHC9Jq4AmvPM9RplWTZ2sUYnAWviNE2vXDYMBV5fZ/xrxsyzriu6l4AFr5QaHwKY7x5FUcy6/GwngbcGb8l2kWglAIc6Ojoav9XJNy0FEmVZztqEo5VAnudzVyfyvRYh861PaK1HzfWvCOR5vlabLucJARKzBldaRAZaa/jFZmwRMJOGWmvo8X9utB3uFgFcnTYz+TKZTqfnIjIkomO7VkSwt3OA2vXNJsYNAQQQETlWSs19AdcUAynGmJk3wBt7Ie34FHM9i6JA2vHdBtQNAXh6jOoURfEHchpH8kul1Jnj3FfT6ljXBGyqEErAWO+bJ6DTUEuAgM0M1gTyPB9XVbUITdBwL5kZiZ7PwFUKuq4mTg2wfk3gANcHdQAKGuchIl9i1M5i/v8TMHk4tH8rQDgf5YsFQyzwQWu98PlOfS5iQpZlM4YD4h8xeX5RFABy7gOGmc9ivmlxc1NXfUDYuSZC/u6z9hAEqqrqszVFTLESokKxTmyu/mhNIEYNjIqJz+mbuSul1GnAus2SteUPZIEVM//qA0ZE/tVa933W1OfWLTBMkuQhxqFCVIiI7pVSawEJGRsnPoQKhTgxEd2Gpi4gvCFgqp1xjB+YXApS6hqN79M0HUYKx0scOEQqgT0MCfQ9O0eapu9iwNcx22QuWol81Egp1dmP6joFq57WAqOyLJeh2aj9WFEUnXIqIn9prdEPDR6vstHYesAnIsdGYHyrLv0bUx4ooKEiQ2W2b6DfdBt8/IaAFZ16SQmznoQWGT5OHGMF5G54ILHVXLOtElwXmxbgZ8eTDa6Jmzdli4ANzz4xodZCcS3oLUfUEIs0Te9cJbWt9G3rzKEtghPa+fJin5eICF28XS0UR2MQ3tLmVVXd7lPBuvLUN27V43rVX59ce15Cuz04EdvDbF6W5Zc2Irvq9lYCzfTCtNpxv9Ft+xnAtziJyCJJkvlkMvnalM0m+c73ARF5z8wA/hZjKSL3+5rNnS80IrJk5l/eAj1qBmZG/2enP3bmJEaZFr4FSyxhpBxVVQ270ptOAgBifAKW8Kq6QkkAfJZlAxd5dSJQI4GXQ98WohcPEbnzeR1yJlBL2IZ4/iSi917Iuif/jda8b7PLm0DNGogFCHpRDg5HJaIZqiuXK+Mso90H9jLDJFeQWa/OHBFB4/EWF9ShtviCLLCLnPmZALJa/Nxmq+MAOSYi/KplFdMBaX77B0kz0ahNkspqAAAAAElFTkSuQmCC'],function(err,result){
         if(err) throw err;
         if(result.affectedRows>0){
             res.send({code:1,msg:"注册成功"})
@@ -111,7 +111,7 @@ app.get("/personalcollect",(req,res)=>{
 //--------------------------------------------个人中心获取部分个人信息
 app.get("/personal",(req,res)=>{
     var uid=req.query.uid;
-    var sql=`SELECT nickname,sex,station FROM career_user WHERE uid=?`
+    var sql=`SELECT nickname,sex,station,avatar FROM career_user WHERE uid=?`
     pool.query(sql,[uid],(err,result)=>{
         console.log(result)
         if(err)throw err;
@@ -200,13 +200,12 @@ app.get("/fenlei",(req,res)=>{
 })
 //------------基本信息
 app.post("/jbxx",(req,res)=>{
-    var {uid,avatar,birthdata,workdata}=req.body
-    console.log(avatar)
-    console.log(birthdata)
-    console.log(workdata)
+    console.log(req.body)
+    var {uid,avatar,nickname,email,QQ,height,birthdata,workdata,sex,marital,education,province,city,xprovince,xcity,introduce}=req.body
     if(avatar){
-    var sql=`UPDATE career_user SET avatar=? , birthdata=? , workdata=?WHERE uid=${uid}`
-    pool.query(sql,[avatar,birthdata,workdata],(err,result)=>{    //查询页面具体数据
+    var jj='avatar=?,nickname=?,email=?,QQ=?,height=?,birthdata=?,workdata=?,sex=?,marital=?,education=?,province=?,city=?,xprovince=?,xcity=?,introduce=?'
+    var sql=`UPDATE career_user SET ${jj} WHERE uid=${uid}`
+    pool.query(sql,[avatar,nickname,email,QQ,height,birthdata,workdata,sex,marital,education,province,city,xprovince,xcity,introduce],(err,result)=>{    //更新页面具体数据
         if(err)throw err;
         console.log(result)
         if(result.affectedRows>0){
@@ -216,7 +215,7 @@ app.post("/jbxx",(req,res)=>{
         }
     })
     }else{
-    var sql=`SELECT avatar,birthdata,workdata FROM career_user WHERE uid=?`
+    var sql=`SELECT avatar,nickname,email,QQ,height,birthdata,workdata,sex,marital,education,province,city,xprovince,xcity,introduce FROM career_user WHERE uid=?`
     pool.query(sql,[uid],(err,result)=>{    //查询页面具体数据
         if(err)throw err;
         //console.log(result)

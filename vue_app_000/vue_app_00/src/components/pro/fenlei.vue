@@ -130,7 +130,6 @@ this.$router.push("/deta1?id="+cid)
     },
     tab(e){
     if(e.target.dataset.id){
-    //  console.log(e.target.dataset.id)
       if(this.active==e.target.dataset.id){
         this.play=!this.play
         }else{
@@ -166,9 +165,11 @@ mounted() {
 </script>
 <style scoped>
  *{margin: 0;padding: 0}
+.content{
+  margin-bottom: 58px;
+}
   li{list-style: none}
   a{text-decoration: none;color: #464646}
- 
   .query{
     width: 100%;
     height: 62px;
@@ -238,8 +239,6 @@ mounted() {
   #fugai{
     height: 100%;
   }
-
-
  /* 中间内容 */
  .PRecord-list div{
    display: flex;

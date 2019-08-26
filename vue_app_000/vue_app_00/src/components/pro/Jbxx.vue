@@ -15,58 +15,58 @@
         </div>
         <div class="l_ipt">
           <span class="l_text">姓名</span>
-          <input type="text" class="l_right" placeholder="请输入简历上的姓名">
+          <input type="text" class="l_right" placeholder="请输入简历上的姓名" v-model="ajaxdata.nickname">
         </div>
         <div class="l_ipt">
           <span class="l_text">邮箱</span>
-          <input type="text" class="l_right" placeholder="请输入邮箱号码">
+          <input type="text" class="l_right" placeholder="请输入邮箱号码" v-model="ajaxdata.email">
         </div>
         <div class="l_ipt">
           <span class="l_text">QQ</span>
-          <input type="text" class="l_right" placeholder="未填写">
+          <input type="text" class="l_right" placeholder="未填写"  v-model="ajaxdata.QQ">
         </div>
         <div class="l_ipt">
-          <span class="l_text">身高</span>
-          <input type="text" class="l_right" placeholder="未填写">
+          <span class="l_text">身高cm</span>
+          <input type="text" class="l_right" placeholder="未填写" v-model="ajaxdata.height">
         </div>
         <div class="l_ipt" @click="selectData('cs')">
           <span class="l_text">出生日期</span>
-          <input  type="text" class="l_right" readonly="readonly" :value="ajaxdata.birthdata">
+          <input  type="text" class="l_right"  placeholder="未填写" v-model="ajaxdata.birthdata">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt" @click="selectData('gz')">
           <span class="l_text">参加工作时间</span>
-          <input  type="text" class="l_right" readonly="readonly" :value="ajaxdata.workdata">
+          <input  type="text" class="l_right"   placeholder="未填写" v-model="ajaxdata.workdata">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">性别</span>
-          <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <input type="text" class="l_right"  placeholder="请选择" v-model="sex">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">婚姻状况</span>
-          <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <input type="text" class="l_right"  placeholder="请选择" v-model="marital">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">最高学历</span>
-          <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <input type="text" class="l_right"  placeholder="请选择" v-model="ajaxdata.education">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">籍贯</span>
-          <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <input type="text" class="l_right" placeholder="请选择" v-model="ajaxdata.province">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_ipt">
           <span class="l_text">现所在地</span>
-          <input type="text" class="l_right" readonly="readonly" placeholder="请选择">
+          <input type="text" class="l_right"  placeholder="请选择" v-model="ajaxdata.xprovince">
           <i class="iconfont l_dayuh">&#xe65f;</i>
         </div>
         <div class="l_textare">
           <h3 style="font-weight:normal;height:30px;margin:0;" class="l_text">自我介绍</h3>
-          <textarea style="margin:0" name id cols="30" rows="10"></textarea>
+          <textarea style="margin:0" name id cols="30" rows="10" v-model="ajaxdata.introduce"></textarea>
           <p class="l_canW">还可以输入15字</p>
         </div>
       </main>
@@ -93,11 +93,14 @@
   </div>
 </template>
 <script>
-import {formatDateMin} from '@/assets/formatdate.js' //时间转换函数
+import {formatDateMin} from '../../js/formatdate' //时间转换函数
 export default {
   data () {
         return {
-            ajaxdata:[],            //接收的ajax数据
+            ajaxdata:{                          //接收的ajax数据
+            },     
+            marital:"",                       
+            sex:"",
             //aaa:"",   
             dateVal: new Date(),              //选择的时间.默认声明这是一个时间类型.双向绑定.
             csgz:'',                          //判断当前点击日期内容 工作/出生
@@ -138,7 +141,6 @@ export default {
       }else{
       this.ajaxdata.birthdata = formatDateMin(this.dateVal);  //调用时间转换函数
       } 
-      console.log(this.ajaxdata) 
     },
 //开局发送ajax得到信息函数
     ajaxdataF(){
@@ -150,6 +152,17 @@ export default {
           res=>{
           if(res.data.code>0){
                   this.ajaxdata=res.data.data[0]
+                  if(this.ajaxdata.sex==1){
+                    this.sex='男'
+                    }else if(this.ajaxdata.sex==0){
+                    this.sex='女'
+                    }
+                  if(this.ajaxdata.marital==1){
+                    this.marital='已婚'
+                    }else if(this.ajaxdata.marital==0){
+                    this.marital='未婚'
+                    }
+                  console.log(this.ajaxdata)
             }else{
             this.$toast({message:res.data.msg})
         }
@@ -157,9 +170,21 @@ export default {
     },
     savexx(){
      var url="jbxx"
+     if(this.sex=='男'){
+        this.ajaxdata.sex=1
+        }else if(this.sex=='女'){
+       this.ajaxdata.sex=0
+        }
+    if( this.marital=='已婚'){
+        this.ajaxdata.marital=1
+        }else if( this.marital=='未婚'){
+       this.ajaxdata.marital=0;
+        }
      var obj=this.ajaxdata
      obj.uid=sessionStorage.getItem("uid")
      console.log(obj)
+     console.log(this.marital)
+     console.log(this.sex)
      this.axios.post(url,this.qs.stringify(obj)).then(
       res=>{
           this.$toast({message:res.data.msg})   

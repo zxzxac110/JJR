@@ -4,7 +4,7 @@
     <div class="personal">
         <div class="personal-to1" @click="jbxx">
             <div class="portrait">
-                <img src="../img/01.png" alt="">
+                <img :src="msg.avatar" alt="">
             </div>
             <div class="personal-to1-gr">
                 <div>{{msg.nickname}}<span>{{msg.sex==0?"女":"男"}}</span></div>
